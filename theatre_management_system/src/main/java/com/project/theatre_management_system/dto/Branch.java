@@ -1,9 +1,11 @@
 package com.project.theatre_management_system.dto;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Branch {
@@ -14,7 +16,13 @@ public class Branch {
 	private String branchGst;
 	private String branchEmail;
 	private long branchPhone;
-
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	private Manager manager;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	private Address address;
+	
 	public int getBranchId() {
 		return branchId;
 	}
@@ -53,6 +61,22 @@ public class Branch {
 
 	public void setBranchPhone(long branchPhone) {
 		this.branchPhone = branchPhone;
+	}
+
+	public Manager getManager() {
+		return manager;
+	}
+
+	public void setManager(Manager manager) {
+		this.manager = manager;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 }

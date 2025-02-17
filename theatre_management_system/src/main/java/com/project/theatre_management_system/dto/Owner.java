@@ -1,9 +1,11 @@
 package com.project.theatre_management_system.dto;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Owner {
@@ -14,6 +16,9 @@ public class Owner {
 	private String ownerGender;
 	private long ownerPhone;
 	private double ownerNetWorth;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	private Theatre theatre;
 
 	public int getOwnerId() {
 		return ownerId;
@@ -53,6 +58,14 @@ public class Owner {
 
 	public void setOwnerNetWorth(double ownerNetWorth) {
 		this.ownerNetWorth = ownerNetWorth;
+	}
+
+	public Theatre getTheatre() {
+		return theatre;
+	}
+
+	public void setTheatre(Theatre theatre) {
+		this.theatre = theatre;
 	}
 
 }

@@ -17,6 +17,15 @@ public class BranchService {
 		return branchDao.saveBranch(branch);
 	}
 	
+	public Branch addExistingManagerToExistingBranch(int managerId, int branchId) {	
+		return branchDao.addExistingManagerToExistingBranch(managerId, branchId);
+	}
+	
+	public Branch addExistingAddressToExistingBranch(int addressId, int branchId) {
+		return branchDao.addExistingAddressToExistingBranch(addressId, branchId);
+	}
+	
+	
 	public Branch fetchBranchById(int branchId) {
 		return branchDao.fetchBranchById(branchId);
 	}
@@ -26,10 +35,11 @@ public class BranchService {
 	}
 	
 	public Branch deleteBranchById(int ownerId) {
-		return branchDao.deleteOwnerById(ownerId);
+		return branchDao.deleteBranchById(ownerId);
 	}
 	
 	public Branch updateBranchById(int oldBranchId, Branch newBranch) {
 		return branchDao.updateBranchById(oldBranchId, newBranch);
 	}
+	
 }

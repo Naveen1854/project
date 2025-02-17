@@ -1,6 +1,6 @@
 package com.project.theatre_management_system.dto;
 
-import java.util.Date;
+import java.sql.Date;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

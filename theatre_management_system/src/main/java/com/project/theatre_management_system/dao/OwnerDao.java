@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.project.theatre_management_system.dto.Owner;
+import com.project.theatre_management_system.dto.Theatre;
 import com.project.theatre_management_system.repo.OwnerRepo;
 
 @Repository
@@ -13,11 +14,21 @@ public class OwnerDao {
 	@Autowired
 	OwnerRepo ownerRepo;
 	
+	@Autowired
+	TheatreDao theatreDao;
+	
 	public Owner saveOwner(Owner owner) {
 		return ownerRepo.save(owner);
+	} 
+	
+	public Owner addExistingTheatreToExistingOwner(int theatreId, int ownerId) {
+		Theatre theatre = theatreDao.fetchTheatreById(theatreId);
+		Owner owner = fetchOwnerById(ownerId);
+		owner.setTheatre(theatre);
+		return saveOwner(owner);
 	}
 	
-	public Owner fetchOwnweById(int ownerId) {
+	public Owner fetchOwnerById(int ownerId) {
 		return ownerRepo.findById(ownerId).get();
 	}
 	
@@ -26,7 +37,7 @@ public class OwnerDao {
 	}
 	
 	public Owner deleteOwnerById(int ownerId) {
-		Owner owner = fetchOwnweById(ownerId);
+		Owner owner = fetchOwnerById(ownerId);
 		ownerRepo.delete(owner);
 		return owner;
 	}

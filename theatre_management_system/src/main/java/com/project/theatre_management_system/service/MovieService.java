@@ -16,6 +16,10 @@ public class MovieService {
 	public Movie saveMovie(Movie movie) {
 		return movieDao.saveMovie(movie);
 	}
+	
+	public Movie addExistingScreenToExistingMovie(int screenId, int movieId) {
+		return movieDao.addExistingScreenToExistingMovie(screenId, movieId);
+	}
 
 	public Movie fetchMovieById(int movieId) {
 		return movieDao.fetchMovieById(movieId);

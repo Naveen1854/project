@@ -2,10 +2,12 @@ package com.project.theatre_management_system.dto;
 
 import java.util.Date;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Ticket {
@@ -16,6 +18,10 @@ public class Ticket {
 	private double ticketPrice;
 	private String ticketStatus;
 	private Date ticketBookedDate;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	private Payment payment;
+	
 	public int getTicketId() {
 		return ticketId;
 	}
@@ -45,6 +51,12 @@ public class Ticket {
 	}
 	public void setTicketBookedDate(Date ticketBookedDate) {
 		this.ticketBookedDate = ticketBookedDate;
+	}
+	public Payment getPayment() {
+		return payment;
+	}
+	public void setPayment(Payment payment) {
+		this.payment = payment;
 	}
 	
 }

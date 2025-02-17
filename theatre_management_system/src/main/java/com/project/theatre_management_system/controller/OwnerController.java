@@ -25,8 +25,8 @@ public class OwnerController {
 	}
 	
 	@GetMapping("/fetchOwnweById")
-	public Owner fetchOwnweById(@RequestParam int ownerId) {
-		return ownerService.fetchOwnweById(ownerId);
+	public Owner fetchOwnerById(@RequestParam int ownerId) {
+		return ownerService.fetchOwnerById(ownerId);
 	}
 	
 	@GetMapping("/fetchAllOwner")
@@ -42,5 +42,10 @@ public class OwnerController {
 	@PutMapping("/updateOwnerById")
 	public Owner updateOwnerById(@RequestParam int oldOwnerId, @RequestBody Owner newOwner) {
 		return ownerService.updateOwnerById(oldOwnerId, newOwner);
+	}
+	
+	@PutMapping("/addExistingTheatreToExistingOwner")
+	public Owner addExistingTheatreToExistingOwner(@RequestParam int theatreId, @RequestParam int ownerId) {
+		return ownerService.addExistingTheatreToExistingOwner(theatreId, ownerId);
 	}
 }

@@ -10,26 +10,30 @@ import com.project.theatre_management_system.dto.Owner;
 
 @Service
 public class OwnerService {
-	
+
 	@Autowired
 	OwnerDao ownerDao;
-	
+
 	public Owner saveOwner(Owner owner) {
 		return ownerDao.saveOwner(owner);
 	}
-	
-	public Owner fetchOwnweById(int ownerId) {
-		return ownerDao.fetchOwnweById(ownerId);
+
+	public Owner addExistingTheatreToExistingOwner(int theatreId, int ownerId) {
+		return ownerDao.addExistingTheatreToExistingOwner(theatreId, ownerId);
 	}
-	
+
+	public Owner fetchOwnerById(int ownerId) {
+		return ownerDao.fetchOwnerById(ownerId);
+	}
+
 	public List<Owner> fetchAllOwner() {
 		return ownerDao.fetchAllOwner();
 	}
-	
+
 	public Owner deleteOwnerById(int ownerId) {
 		return ownerDao.deleteOwnerById(ownerId);
 	}
-	
+
 	public Owner updateOwnerById(int oldOwnerId, Owner newOwner) {
 		return ownerDao.updateOwnerById(oldOwnerId, newOwner);
 	}

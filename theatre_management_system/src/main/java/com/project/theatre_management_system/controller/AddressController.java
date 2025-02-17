@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.theatre_management_system.dto.Address;
-import com.project.theatre_management_system.dto.Owner;
 import com.project.theatre_management_system.service.AddressService;
 
 @RestController
@@ -30,14 +29,16 @@ public class AddressController {
 		return addressService.fetchAddressById(addressId);
 	}
 
-	@GetMapping("/fetchAddressOwner")
-	public List<Address> fetchAllAddresses() {
+	@GetMapping("/fetchAllAddress")
+	public List<Address> fetchAllAddress() {
 		return addressService.fetchAllAddress();
 	}
 
 	@DeleteMapping("/deleteAddressById")
 	public Address deleteAddressById(@RequestParam int addressId) {
+		System.out.println("Address deleted successfully.");
 		return addressService.deleteAddressById(addressId);
+		
 	}
 
 	@PutMapping("/updateAddressById")

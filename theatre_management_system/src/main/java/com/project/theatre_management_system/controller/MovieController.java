@@ -43,4 +43,9 @@ public class MovieController {
 	public Movie updateMovieById(@RequestParam int oldMovieId, @RequestBody Movie newMovie) {
 		return movieService.updateMovieById(oldMovieId, newMovie);
 	}
+	
+	@PutMapping("/addExistingScreenToExistingMovie")
+	public Movie addExistingScreenToExistingMovie(@RequestParam int screenId, @RequestParam int movieId) {
+		return movieService.addExistingScreenToExistingMovie(screenId, movieId);
+	}
 }

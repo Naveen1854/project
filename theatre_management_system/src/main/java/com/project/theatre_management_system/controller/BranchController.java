@@ -19,29 +19,39 @@ import com.project.theatre_management_system.service.BranchService;
 public class BranchController {
 	@Autowired
 	BranchService branchService;
-	
+
 	@PostMapping("/saveBranch")
 	public Branch saveBranch(@RequestBody Branch branch) {
 		return branchService.saveBranch(branch);
 	}
-	
+
 	@GetMapping("/fetchBranchById")
 	public Branch fetchBranchById(@RequestParam int branchId) {
 		return branchService.fetchBranchById(branchId);
 	}
-	
+
 	@GetMapping("/fetchAllBranch")
 	public List<Branch> fetchAllBranch() {
 		return branchService.fetchAllBranch();
 	}
-	
+
 	@DeleteMapping("/deleteBranchById")
 	public Branch deleteBranchById(@RequestParam int branchId) {
 		return branchService.deleteBranchById(branchId);
 	}
-	
+
 	@PutMapping("/updateBranchById")
 	public Branch updateBranchById(@RequestParam int oldBranchId, @RequestBody Branch newBranch) {
 		return branchService.updateBranchById(oldBranchId, newBranch);
+	}
+
+	@PutMapping("/addExistingManagerToExistingBranch")
+	public Branch addExistingManagerToExistingBranch(@RequestParam int managerId, @RequestParam int branchId) {
+		return branchService.addExistingManagerToExistingBranch(managerId, branchId);
+	}
+
+	@PutMapping("/addExistingAddressToExistingBranch")
+	public Branch addExistingAddressToExistingBranch(@RequestParam int addressId, @RequestParam int branchId) {
+		return branchService.addExistingAddressToExistingBranch(addressId, branchId);
 	}
 }

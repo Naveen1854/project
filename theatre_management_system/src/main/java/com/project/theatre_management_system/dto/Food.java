@@ -13,7 +13,7 @@ public class Food {
 	private String foodName;
 	private String foodType;
 	private double foodPrice;
-	private String foodQuality;
+	private String foodQuantity;
 
 	public int getFoodId() {
 		return foodId;
@@ -47,12 +47,12 @@ public class Food {
 		this.foodPrice = foodPrice;
 	}
 
-	public String getFoodQuality() {
-		return foodQuality;
+	public String getFoodQuantity() {
+		return foodQuantity;
 	}
 
-	public void setFoodQuality(String foodQuality) {
-		this.foodQuality = foodQuality;
+	public void setFoodQuantity(String foodQuantity) {
+		this.foodQuantity = foodQuantity;
 	}
 
 }

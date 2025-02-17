@@ -17,7 +17,7 @@ public class ScreenDao {
 		return screenRepo.save(Screen);
 	}
 	
-	public Screen fetchOwnweById(int ScreenId) {
+	public Screen fetchScreenById(int ScreenId) {
 		return screenRepo.findById(ScreenId).get();
 	}
 	

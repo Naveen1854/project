@@ -2,10 +2,12 @@ package com.project.theatre_management_system.dto;
 
 import java.sql.Time;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Movie {
@@ -18,6 +20,9 @@ public class Movie {
 	private String movieLanguage;
 	private double movieBudget;
 
+	@OneToOne(cascade = CascadeType.ALL)
+	private Screen screen;
+	
 	public int getMovieId() {
 		return movieId;
 	}
@@ -64,6 +69,14 @@ public class Movie {
 
 	public void setMovieBudget(double movieBudget) {
 		this.movieBudget = movieBudget;
+	}
+
+	public Screen getScreen() {
+		return screen;
+	}
+
+	public void setScreen(Screen screen) {
+		this.screen = screen;
 	}
 
 }

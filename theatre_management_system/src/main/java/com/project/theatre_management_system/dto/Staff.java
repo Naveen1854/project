@@ -11,7 +11,7 @@ public class Staff {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int staffId;
 	private String staffName;
-	private double staffsalary;
+	private double staffSalary;
 	private long staffPhone;
 	private String staffEmail;
 
@@ -31,12 +31,12 @@ public class Staff {
 		this.staffName = staffName;
 	}
 
-	public double getStaffsalary() {
-		return staffsalary;
+	public double getStaffSalary() {
+		return staffSalary;
 	}
 
-	public void setStaffsalary(double staffsalary) {
-		this.staffsalary = staffsalary;
+	public void setStaffSalary(double staffSalary) {
+		this.staffSalary = staffSalary;
 	}
 
 	public long getStaffPhone() {
