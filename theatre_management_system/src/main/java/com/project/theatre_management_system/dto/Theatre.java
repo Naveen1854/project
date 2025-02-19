@@ -1,9 +1,13 @@
 package com.project.theatre_management_system.dto;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Theatre {
@@ -14,6 +18,9 @@ public class Theatre {
 	private String theatreGst;
 	private String theatreEmail;
 	private long theatrePhone;
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Branch> branchs;
 
 	public int getTheatreId() {
 		return theatreId;
@@ -53,6 +60,14 @@ public class Theatre {
 
 	public void setTheatrePhone(long theatrePhone) {
 		this.theatrePhone = theatrePhone;
+	}
+
+	public List<Branch> getBranchs() {
+		return branchs;
+	}
+
+	public void setBranchs(List<Branch> branchs) {
+		this.branchs = branchs;
 	}
 
 }

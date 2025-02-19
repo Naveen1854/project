@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.theatre_management_system.dto.Branch;
 import com.project.theatre_management_system.dto.Owner;
+import com.project.theatre_management_system.dto.Screen;
+import com.project.theatre_management_system.dto.Staff;
 import com.project.theatre_management_system.service.BranchService;
 
 @RestController
@@ -53,5 +55,25 @@ public class BranchController {
 	@PutMapping("/addExistingAddressToExistingBranch")
 	public Branch addExistingAddressToExistingBranch(@RequestParam int addressId, @RequestParam int branchId) {
 		return branchService.addExistingAddressToExistingBranch(addressId, branchId);
+	}
+
+	@PutMapping("/addExistingStaffToExistingBranch")
+	public Branch addExistingStaffToExistingBranch(@RequestParam int staffId, @RequestParam int branchId) {
+		return branchService.addExistingStaffToExistingBranch(staffId, branchId);
+	}
+	
+	@PostMapping("/addNewStaffToExistingBranch")
+	public Branch addNewStaffToExistingBranch(@RequestParam int branchId, @RequestBody Staff newStaff) {
+		return branchService.addNewStaffToExistingBranch(branchId, newStaff);
+	}
+	
+	@PutMapping("/addExistingScreenToExistingBranch")
+	public Branch addExistingScreenToExistingBranch(@RequestParam int screenId, @RequestParam int branchId) {
+		return branchService.addExistingScreenToExistingBranch(screenId, branchId);
+	}
+	
+	@PostMapping("/addNewScreenToExistingBranch")
+	public Branch addNewScreenToExistingBranch(@RequestParam int branchId, @RequestBody Screen newScreen) {
+		return branchService.addNewScreenToExistingBranch(branchId, newScreen);
 	}
 }

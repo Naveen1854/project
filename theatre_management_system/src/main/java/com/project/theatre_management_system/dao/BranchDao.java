@@ -8,18 +8,26 @@ import org.springframework.stereotype.Repository;
 import com.project.theatre_management_system.dto.Address;
 import com.project.theatre_management_system.dto.Branch;
 import com.project.theatre_management_system.dto.Manager;
+import com.project.theatre_management_system.dto.Screen;
+import com.project.theatre_management_system.dto.Staff;
 import com.project.theatre_management_system.repo.BranchRepo;
 
 @Repository
 public class BranchDao {
 	@Autowired
 	BranchRepo branchRepo;
-	
+
 	@Autowired
 	ManagerDao managerDao;
-	
+
 	@Autowired
 	AddressDao addressDao;
+
+	@Autowired
+	StaffDao staffDao;
+
+	@Autowired
+	ScreenDao screenDao;
 
 	public Branch saveBranch(Branch branch) {
 		return branchRepo.save(branch);
@@ -31,11 +39,45 @@ public class BranchDao {
 		branch.setManager(manager);
 		return saveBranch(branch);
 	}
-	
+
 	public Branch addExistingAddressToExistingBranch(int addressId, int branchId) {
 		Address address = addressDao.fetchAddressById(addressId);
 		Branch branch = fetchBranchById(branchId);
 		branch.setAddress(address);
+		return saveBranch(branch);
+	}
+
+	public Branch addExistingStaffToExistingBranch(int staffId, int branchId) {
+		Staff staff = staffDao.fetchStaffById(staffId);
+		Branch branch = fetchBranchById(branchId);
+		List<Staff> list = branch.getStaff();
+		list.add(staff);
+		branch.setStaff(list);
+		return saveBranch(branch);
+	}
+
+	public Branch addNewStaffToExistingBranch(int branchId, Staff newStaff) {
+		Branch branch = fetchBranchById(branchId);
+		List<Staff> list = branch.getStaff();
+		list.add(newStaff);
+		branch.setStaff(list);
+		return saveBranch(branch);
+	}
+
+	public Branch addExistingScreenToExistingBranch(int screenId, int branchId) {
+		Screen screen = screenDao.fetchScreenById(screenId);
+		Branch branch = fetchBranchById(branchId);
+		List<Screen> list = branch.getScreens();
+		list.add(screen);
+		branch.setScreens(list);
+		return saveBranch(branch);
+	}
+
+	public Branch addNewScreenToExistingBranch(int branchId, Screen newScreen) {
+		Branch branch = fetchBranchById(branchId);
+		List<Screen> list = branch.getScreens();
+		list.add(newScreen);
+		branch.setScreens(list);
 		return saveBranch(branch);
 	}
 

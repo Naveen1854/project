@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.theatre_management_system.dto.Screen;
+import com.project.theatre_management_system.dto.Seat;
 import com.project.theatre_management_system.service.ScreenService;
 
 @RestController
@@ -43,5 +44,15 @@ public class ScreenController {
 	@PutMapping("/updateScreenById")
 	public Screen updateScreenById(@RequestParam int oldScreend, @RequestBody Screen newScreen) {
 		return screenService.updateScreenById(oldScreend, newScreen);
+	}
+	
+	@PutMapping("/addExistingSeatToExistingScreen")
+	public Screen addExistingSeatToExistingScreen(int seatId, int ScreenId) {
+		return screenService.addExistingSeatToExistingScreen(seatId, ScreenId);
+	}
+	
+	@PostMapping("/addNewSeatToExistingScreen")
+	public Screen addNewSeatToExistingScreen(int screenId, Seat newSeat) {
+		return screenService.addNewSeatToExistingScreen(screenId, newSeat);
 	}
 }

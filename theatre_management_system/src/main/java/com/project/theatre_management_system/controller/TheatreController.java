@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.theatre_management_system.dto.Branch;
 import com.project.theatre_management_system.dto.Theatre;
 import com.project.theatre_management_system.service.TheatreService;
 
@@ -23,6 +24,16 @@ public class TheatreController {
 	@PostMapping("/saveTheatre")
 	public Theatre saveTheatre(@RequestBody Theatre theatre) {
 		return theatreService.saveTheatre(theatre);
+	}
+	
+	@PutMapping("/addExistingBranchToExistingTheatre")
+	public Theatre addExistingBranchToExistingTheatre(@RequestParam int branchId, @RequestParam int theatreId) {
+		return theatreService.addExistingBranchToExistingTheatre(branchId, theatreId);
+	}
+	
+	@PostMapping("/addNewBranchToExistingTheatre")
+	public Theatre addNewBranchToExistingTheatre(@RequestParam int theatreId, @RequestBody Branch newBranch) {
+		return theatreService.addNewBranchToExistingTheatre(theatreId, newBranch);
 	}
 	
 	@GetMapping("/fetchTheatreById")

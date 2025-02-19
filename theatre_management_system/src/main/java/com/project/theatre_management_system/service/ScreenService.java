@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.theatre_management_system.dao.ScreenDao;
 import com.project.theatre_management_system.dto.Screen;
+import com.project.theatre_management_system.dto.Seat;
 
 @Service
 public class ScreenService {
@@ -15,6 +16,14 @@ public class ScreenService {
 	
 	public Screen saveScreen(Screen screen) {
 		return serviceDao.saveScreen(screen);
+	}
+	
+	public Screen addExistingSeatToExistingScreen(int seatId, int ScreenId) {
+		return serviceDao.addExistingSeatToExistingScreen(seatId, ScreenId);
+	}
+	
+	public Screen addNewSeatToExistingScreen(int screenId, Seat newSeat) {
+		return serviceDao.addNewSeatToExistingScreen(screenId, newSeat);
 	}
 	
 	public Screen fetchScreenById(int screenId) {

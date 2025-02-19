@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.theatre_management_system.dao.TheatreDao;
+import com.project.theatre_management_system.dto.Branch;
 import com.project.theatre_management_system.dto.Theatre;
 
 @Service
@@ -16,6 +17,14 @@ public class TheatreService {
 	
 	public Theatre saveTheatre(Theatre theatre) {
 		return theatreDao.saveTheatre(theatre);
+	}
+	
+	public Theatre addExistingBranchToExistingTheatre(int branchId, int theatreId) {
+		return theatreDao.addExistingBranchToExistingTheatre(branchId, theatreId);
+	}
+	
+	public Theatre addNewBranchToExistingTheatre(int theatreId, Branch newBranch) {
+		return theatreDao.addNewBranchToExistingTheatre(theatreId, newBranch);
 	}
 	
 	public Theatre fetchTheatreById(int theatreId) {

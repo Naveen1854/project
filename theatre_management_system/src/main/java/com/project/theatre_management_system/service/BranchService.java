@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.project.theatre_management_system.dao.BranchDao;
 import com.project.theatre_management_system.dto.Branch;
+import com.project.theatre_management_system.dto.Screen;
+import com.project.theatre_management_system.dto.Staff;
 
 @Service
 public class BranchService {
@@ -25,6 +27,21 @@ public class BranchService {
 		return branchDao.addExistingAddressToExistingBranch(addressId, branchId);
 	}
 	
+	public Branch addExistingStaffToExistingBranch(int staffId, int branchId) {
+		return branchDao.addExistingStaffToExistingBranch(staffId, branchId);
+	}
+	
+	public Branch addNewStaffToExistingBranch(int branchId, Staff newStaff) {
+		return branchDao.addNewStaffToExistingBranch(branchId, newStaff);
+	}
+	
+	public Branch addExistingScreenToExistingBranch(int screenId, int branchId) {
+		return branchDao.addExistingScreenToExistingBranch(screenId, branchId);
+	}
+	
+	public Branch addNewScreenToExistingBranch(int branchId, Screen newScreen) {
+		return branchDao.addNewScreenToExistingBranch(branchId, newScreen);
+	}
 	
 	public Branch fetchBranchById(int branchId) {
 		return branchDao.fetchBranchById(branchId);
