@@ -1,12 +1,13 @@
 package com.project.theatre_management_system.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.project.theatre_management_system.dao.OwnerDao;
 import com.project.theatre_management_system.dto.Owner;
+import com.project.theatre_management_system.util.ResponseStructure;
+import com.project.theatre_management_system.util.ResponseStructureList;
 
 @Service
 public class OwnerService {
@@ -14,27 +15,51 @@ public class OwnerService {
 	@Autowired
 	OwnerDao ownerDao;
 
-	public Owner saveOwner(Owner owner) {
-		return ownerDao.saveOwner(owner);
+	@Autowired
+	ResponseStructure<Owner> responseStructure;
+	
+	@Autowired
+	ResponseStructureList<Owner> responseStructureList;
+
+	public ResponseStructure<Owner> saveOwner(Owner owner) {
+		responseStructure.setStatusCode(HttpStatus.CREATED.value());
+		responseStructure.setMessage("Succesfully Saved the Owner into db");
+		responseStructure.setData(ownerDao.saveOwner(owner));
+		return responseStructure;
 	}
 
-	public Owner addExistingTheatreToExistingOwner(int theatreId, int ownerId) {
-		return ownerDao.addExistingTheatreToExistingOwner(theatreId, ownerId);
+	public ResponseStructure<Owner> addExistingTheatreToExistingOwner(int theatreId, int ownerId) {
+		responseStructure.setStatusCode(HttpStatus.FOUND.value());
+		responseStructure.setMessage("Theatre successfully added to the Owner");
+		responseStructure.setData(ownerDao.addExistingTheatreToExistingOwner(theatreId, ownerId));
+		return responseStructure;
 	}
 
-	public Owner fetchOwnerById(int ownerId) {
-		return ownerDao.fetchOwnerById(ownerId);
+	public ResponseStructure<Owner> fetchOwnerById(int ownerId) {
+		responseStructure.setStatusCode(HttpStatus.FOUND.value());
+		responseStructure.setMessage("Owner successfully fetched from db");
+		responseStructure.setData(ownerDao.fetchOwnerById(ownerId));
+		return responseStructure;
 	}
 
-	public List<Owner> fetchAllOwner() {
-		return ownerDao.fetchAllOwner();
+	public ResponseStructureList<Owner> fetchAllOwner() {
+		responseStructureList.setStatusCode(HttpStatus.FOUND.value());
+		responseStructureList.setMessage("Succesfully Address fetched by id from db");
+		responseStructureList.setData(ownerDao.fetchAllOwner());
+		return responseStructureList;
 	}
 
-	public Owner deleteOwnerById(int ownerId) {
-		return ownerDao.deleteOwnerById(ownerId);
+	public ResponseStructure<Owner> deleteOwnerById(int ownerId) {
+		responseStructure.setStatusCode(HttpStatus.OK.value());
+		responseStructure.setMessage("Succesfully Address fetched by id from db");
+		responseStructure.setData(ownerDao.deleteOwnerById(ownerId));
+		return responseStructure;
 	}
 
-	public Owner updateOwnerById(int oldOwnerId, Owner newOwner) {
-		return ownerDao.updateOwnerById(oldOwnerId, newOwner);
+	public ResponseStructure<Owner> updateOwnerById(int oldOwnerId, Owner newOwner) {
+		responseStructure.setStatusCode(HttpStatus.OK.value());
+		responseStructure.setMessage("Succesfully Address fetched by id from db");
+		responseStructure.setData(ownerDao.updateOwnerById(oldOwnerId, newOwner));
+		return responseStructure;
 	}
 }

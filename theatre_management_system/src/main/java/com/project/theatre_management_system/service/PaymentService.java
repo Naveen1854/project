@@ -1,35 +1,57 @@
 package com.project.theatre_management_system.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.project.theatre_management_system.dao.PaymentDao;
 import com.project.theatre_management_system.dto.Payment;
+import com.project.theatre_management_system.util.ResponseStructure;
+import com.project.theatre_management_system.util.ResponseStructureList;
 
 @Service
 public class PaymentService {
 	@Autowired
 	PaymentDao paymentDao;
 	
-	public Payment savePayment(Payment payment) {
-		return paymentDao.savePayment(payment);
+	@Autowired
+	ResponseStructure<Payment> responseStructure;
+	
+	@Autowired
+	ResponseStructureList<Payment> responseStructureList;
+	
+	public ResponseStructure<Payment> savePayment(Payment payment) {
+		responseStructure.setStatusCode(HttpStatus.CREATED.value());
+		responseStructure.setMessage("Successfully saved the Manager into db");
+		responseStructure.setData(paymentDao.savePayment(payment));
+		return responseStructure;
 	}
 	
-	public Payment fetchPaymentById(int paymentId) {
-		return paymentDao.fetchPaymentById(paymentId);
+	public ResponseStructure<Payment> fetchPaymentById(int paymentId) {
+		responseStructure.setStatusCode(HttpStatus.FOUND.value());
+		responseStructure.setMessage("Successfully saved the Manager into db");
+		responseStructure.setData(paymentDao.fetchPaymentById(paymentId));
+		return responseStructure;
 	}
 	
-	public List<Payment> fetchAllPayment() {
-		return paymentDao.fetchAllPayment();
+	public ResponseStructureList<Payment> fetchAllPayment() {
+		responseStructureList.setStatusCode(HttpStatus.FOUND.value());
+		responseStructureList.setMessage("Succesfully Address fetched by id from db");
+		responseStructureList.setData(paymentDao.fetchAllPayment());
+		return responseStructureList;
 	}
 	
-	public Payment deletePaymentById(int paymentId) {
-		return paymentDao.deletePaymentById(paymentId);
+	public ResponseStructure<Payment> deletePaymentById(int paymentId) {
+		responseStructure.setStatusCode(HttpStatus.OK.value());
+		responseStructure.setMessage("Succesfully Address fetched by id from db");
+		responseStructure.setData(paymentDao.deletePaymentById(paymentId));
+		return responseStructure;
 	}
 	
-	public Payment updatePaymentById(int oldPaymentId, Payment newPayment) {
-		return paymentDao.updatePaymentById(oldPaymentId, newPayment);
+	public ResponseStructure<Payment> updatePaymentById(int oldPaymentId, Payment newPayment) {
+		responseStructure.setStatusCode(HttpStatus.OK.value());
+		responseStructure.setMessage("Succesfully Address fetched by id from db");
+		responseStructure.setData(paymentDao.updatePaymentById(oldPaymentId, newPayment));
+		return responseStructure;
 	}
 }

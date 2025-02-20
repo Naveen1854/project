@@ -1,10 +1,13 @@
 package com.project.theatre_management_system.dto;
 
+import java.util.List;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
 @Entity
@@ -20,6 +23,12 @@ public class Viewer {
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	private Seat seat;
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Ticket> tickets;
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Food> foods;
 	
 	public int getViewerId() {
 		return viewerId;
@@ -75,6 +84,22 @@ public class Viewer {
 
 	public void setSeat(Seat seat) {
 		this.seat = seat;
+	}
+
+	public List<Ticket> getTickets() {
+		return tickets;
+	}
+
+	public void setTickets(List<Ticket> tickets) {
+		this.tickets = tickets;
+	}
+
+	public List<Food> getFoods() {
+		return foods;
+	}
+
+	public void setFoods(List<Food> foods) {
+		this.foods = foods;
 	}
 
 }

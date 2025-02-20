@@ -1,62 +1,102 @@
 package com.project.theatre_management_system.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.project.theatre_management_system.dao.BranchDao;
 import com.project.theatre_management_system.dto.Branch;
 import com.project.theatre_management_system.dto.Screen;
 import com.project.theatre_management_system.dto.Staff;
+import com.project.theatre_management_system.util.ResponseStructure;
+import com.project.theatre_management_system.util.ResponseStructureList;
 
 @Service
 public class BranchService {
 	@Autowired
 	BranchDao branchDao;
 	
-	public Branch saveBranch(Branch branch) {
-		return branchDao.saveBranch(branch);
+	@Autowired
+	ResponseStructure<Branch> responseStructure;
+	
+	@Autowired
+	ResponseStructureList<Branch> responseStructureList;
+	
+	public ResponseStructure<Branch> saveBranch(Branch branch) {
+		responseStructure.setStatusCode(HttpStatus.CREATED.value());
+		responseStructure.setMessage("Successfully saved the Branch into db");
+		responseStructure.setData(branchDao.saveBranch(branch));
+		return responseStructure;
 	}
 	
-	public Branch addExistingManagerToExistingBranch(int managerId, int branchId) {	
-		return branchDao.addExistingManagerToExistingBranch(managerId, branchId);
+	public ResponseStructure<Branch> addExistingManagerToExistingBranch(int managerId, int branchId) {
+		responseStructure.setStatusCode(HttpStatus.FOUND.value());
+		responseStructure.setMessage("Successfully added Existing Manager To Existing Branch");
+		responseStructure.setData(branchDao.addExistingManagerToExistingBranch(managerId, branchId));
+		return responseStructure;
 	}
 	
-	public Branch addExistingAddressToExistingBranch(int addressId, int branchId) {
-		return branchDao.addExistingAddressToExistingBranch(addressId, branchId);
+	public ResponseStructure<Branch> addExistingAddressToExistingBranch(int addressId, int branchId) {
+		responseStructure.setStatusCode(HttpStatus.FOUND.value());
+		responseStructure.setMessage("Successfully added Existing Address To Existing Branch");
+		responseStructure.setData(branchDao.addExistingAddressToExistingBranch(addressId, branchId));
+		return responseStructure;
 	}
 	
-	public Branch addExistingStaffToExistingBranch(int staffId, int branchId) {
-		return branchDao.addExistingStaffToExistingBranch(staffId, branchId);
+	public ResponseStructure<Branch> addExistingStaffToExistingBranch(int staffId, int branchId) {
+		responseStructure.setStatusCode(HttpStatus.FOUND.value());
+		responseStructure.setMessage("Successfully added Existing Staff To Existing Branch");
+		responseStructure.setData(branchDao.addExistingStaffToExistingBranch(staffId, branchId));
+		return responseStructure;
 	}
 	
-	public Branch addNewStaffToExistingBranch(int branchId, Staff newStaff) {
-		return branchDao.addNewStaffToExistingBranch(branchId, newStaff);
+	public ResponseStructure<Branch> addNewStaffToExistingBranch(int branchId, Staff newStaff) {
+		responseStructure.setStatusCode(HttpStatus.FOUND.value());
+		responseStructure.setMessage("Successfully New Staff added Existing Branch");
+		responseStructure.setData(branchDao.addNewStaffToExistingBranch(branchId, newStaff));
+		return responseStructure;
 	}
 	
-	public Branch addExistingScreenToExistingBranch(int screenId, int branchId) {
-		return branchDao.addExistingScreenToExistingBranch(screenId, branchId);
+	public ResponseStructure<Branch> addExistingScreenToExistingBranch(int screenId, int branchId) {
+		responseStructure.setStatusCode(HttpStatus.FOUND.value());
+		responseStructure.setMessage("Successfully Existing screen added to Existing Branch");
+		responseStructure.setData(branchDao.addExistingScreenToExistingBranch(screenId, branchId));
+		return responseStructure;
 	}
 	
-	public Branch addNewScreenToExistingBranch(int branchId, Screen newScreen) {
-		return branchDao.addNewScreenToExistingBranch(branchId, newScreen);
+	public ResponseStructure<Branch> addNewScreenToExistingBranch(int branchId, Screen newScreen) {
+		responseStructure.setStatusCode(HttpStatus.FOUND.value());
+		responseStructure.setMessage("Successfully New screen added to Existing Branch");
+		responseStructure.setData(branchDao.addNewScreenToExistingBranch(branchId, newScreen));
+		return responseStructure;
 	}
 	
-	public Branch fetchBranchById(int branchId) {
-		return branchDao.fetchBranchById(branchId);
+	public ResponseStructure<Branch> fetchBranchById(int branchId) {
+		responseStructure.setStatusCode(HttpStatus.FOUND.value());
+		responseStructure.setMessage("Successfullyg Branch fetched By Id");
+		responseStructure.setData(branchDao.fetchBranchById(branchId));
+		return responseStructure;
 	}
 	
-	public List<Branch> fetchAllBranch() {
-		return branchDao.fetchAllBranch();
+	public ResponseStructureList<Branch> fetchAllBranch() {
+		responseStructureList.setStatusCode(HttpStatus.FOUND.value());
+		responseStructureList.setMessage("Succesfully AllBranch fetched db");
+		responseStructureList.setData(branchDao.fetchAllBranch());
+		return responseStructureList;
 	}
 	
-	public Branch deleteBranchById(int ownerId) {
-		return branchDao.deleteBranchById(ownerId);
+	public ResponseStructure<Branch> deleteBranchById(int ownerId) {
+		responseStructure.setStatusCode(HttpStatus.OK.value());
+		responseStructure.setMessage("Succesfully Branch deleated by id from db");
+		responseStructure.setData(branchDao.deleteBranchById(ownerId));
+		return responseStructure;
 	}
 	
-	public Branch updateBranchById(int oldBranchId, Branch newBranch) {
-		return branchDao.updateBranchById(oldBranchId, newBranch);
+	public ResponseStructure<Branch> updateBranchById(int oldBranchId, Branch newBranch) {
+		responseStructure.setStatusCode(HttpStatus.OK.value());
+		responseStructure.setMessage("Succesfully branch updated by id in db");
+		responseStructure.setData(branchDao.updateBranchById(oldBranchId, newBranch));
+		return responseStructure;
 	}
 	
 }

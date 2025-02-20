@@ -1,7 +1,5 @@
 package com.project.theatre_management_system.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,35 +11,37 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.theatre_management_system.dto.Staff;
 import com.project.theatre_management_system.service.StaffService;
+import com.project.theatre_management_system.util.ResponseStructure;
+import com.project.theatre_management_system.util.ResponseStructureList;
 
 @RestController
 public class StaffController {
 
 	@Autowired
 	StaffService staffService;
-	
+
 	@PostMapping("/saveStaff")
-	public Staff saveStaff(@RequestBody Staff staff) {
+	public ResponseStructure<Staff> saveStaff(@RequestBody Staff staff) {
 		return staffService.saveStaff(staff);
 	}
-	
+
 	@GetMapping("/fetchStaffById")
-	public Staff fetchStaffById(@RequestParam int staffId) {
+	public ResponseStructure<Staff> fetchStaffById(@RequestParam int staffId) {
 		return staffService.fetchStaffById(staffId);
 	}
-	
+
 	@GetMapping("/fetchAllStaff")
-	public List<Staff> fetchAllStaff() {
+	public ResponseStructureList<Staff> fetchAllStaff() {
 		return staffService.fetchAllStaff();
 	}
-	
+
 	@DeleteMapping("/deleteStaffById")
-	public Staff deleteStaffById(@RequestParam int staffId) {
+	public ResponseStructure<Staff> deleteStaffById(@RequestParam int staffId) {
 		return staffService.deleteStaffById(staffId);
 	}
-	
+
 	@PutMapping("/updateStaffById")
-	public Staff updateStaffById(@RequestParam int oldStaffId, @RequestBody Staff newStaff) {
+	public ResponseStructure<Staff> updateStaffById(@RequestParam int oldStaffId, @RequestBody Staff newStaff) {
 		return staffService.updateStaffById(oldStaffId, newStaff);
 	}
 }

@@ -1,44 +1,72 @@
 package com.project.theatre_management_system.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.project.theatre_management_system.dao.ScreenDao;
 import com.project.theatre_management_system.dto.Screen;
 import com.project.theatre_management_system.dto.Seat;
+import com.project.theatre_management_system.util.ResponseStructure;
+import com.project.theatre_management_system.util.ResponseStructureList;
 
 @Service
 public class ScreenService {
 	@Autowired
 	ScreenDao serviceDao;
 	
-	public Screen saveScreen(Screen screen) {
-		return serviceDao.saveScreen(screen);
+	@Autowired
+	ResponseStructure<Screen> responseStructure;
+	
+	@Autowired
+	ResponseStructureList<Screen> responseStructureList;
+	
+	public ResponseStructure<Screen> saveScreen(Screen screen) {
+		responseStructure.setStatusCode(HttpStatus.CREATED.value());
+		responseStructure.setMessage("Succesfully Saved the Owner into db");
+		responseStructure.setData(serviceDao.saveScreen(screen));
+		return responseStructure;
 	}
 	
-	public Screen addExistingSeatToExistingScreen(int seatId, int ScreenId) {
-		return serviceDao.addExistingSeatToExistingScreen(seatId, ScreenId);
+	public ResponseStructure<Screen> addExistingSeatToExistingScreen(int seatId, int ScreenId) {
+		responseStructure.setStatusCode(HttpStatus.FOUND.value());
+		responseStructure.setMessage("Succesfully Saved the Owner into db");
+		responseStructure.setData(serviceDao.addExistingSeatToExistingScreen(seatId, ScreenId));
+		return responseStructure; 
 	}
 	
-	public Screen addNewSeatToExistingScreen(int screenId, Seat newSeat) {
-		return serviceDao.addNewSeatToExistingScreen(screenId, newSeat);
+	public ResponseStructure<Screen> addNewSeatToExistingScreen(int screenId, Seat newSeat) {
+		responseStructure.setStatusCode(HttpStatus.FOUND.value());
+		responseStructure.setMessage("Succesfully Saved the Owner into db");
+		responseStructure.setData(serviceDao.addNewSeatToExistingScreen(screenId, newSeat));
+		return responseStructure;
 	}
 	
-	public Screen fetchScreenById(int screenId) {
-		return serviceDao.fetchScreenById(screenId);
+	public ResponseStructure<Screen> fetchScreenById(int screenId) {
+		responseStructure.setStatusCode(HttpStatus.FOUND.value());
+		responseStructure.setMessage("Owner successfully fetched from db");
+		responseStructure.setData(serviceDao.fetchScreenById(screenId));
+		return responseStructure;
 	}
 	
-	public List<Screen> fetchAllScreen() {
-		return serviceDao.fetchAllScreen();
+	public ResponseStructureList<Screen> fetchAllScreen() {
+		responseStructureList.setStatusCode(HttpStatus.FOUND.value());
+		responseStructureList.setMessage("Succesfully Address fetched by id from db");
+		responseStructureList.setData(serviceDao.fetchAllScreen());
+		return responseStructureList;
 	}
 	
-	public Screen deleteScreenById(int screenId) {
-		return serviceDao.deleteScreenById(screenId);
+	public ResponseStructure<Screen> deleteScreenById(int screenId) {
+		responseStructure.setStatusCode(HttpStatus.OK.value());
+		responseStructure.setMessage("Succesfully Address fetched by id from db");
+		responseStructure.setData(serviceDao.deleteScreenById(screenId));
+		return responseStructure;
 	}
 	
-	public Screen updateScreenById(int oldScreenId, Screen newScreen) {
-		return serviceDao.updateScreenById(oldScreenId, newScreen);
+	public ResponseStructure<Screen> updateScreenById(int oldScreenId, Screen newScreen) {
+		responseStructure.setStatusCode(HttpStatus.OK.value());
+		responseStructure.setMessage("Succesfully Address fetched by id from db");
+		responseStructure.setData(serviceDao.updateScreenById(oldScreenId, newScreen));
+		return responseStructure;
 	}
 }

@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.project.theatre_management_system.dto.Food;
 import com.project.theatre_management_system.dto.Seat;
+import com.project.theatre_management_system.dto.Ticket;
 import com.project.theatre_management_system.dto.Viewer;
 import com.project.theatre_management_system.repo.ViewerRepo;
 
@@ -17,6 +19,12 @@ public class ViewerDao {
 
 	@Autowired
 	SeatDao seatDao;
+	
+	@Autowired
+	TicketDao ticketDao;
+	
+	@Autowired
+	FoodDao foodDao;
 
 	public Viewer saveViewer(Viewer viewer) {
 		return viewerRepo.save(viewer);
@@ -29,6 +37,40 @@ public class ViewerDao {
 		return saveViewer(viewer);
 	}
 
+	public Viewer addExistingTicketToExistingViewer(int ticketId, int viewerId) {
+		Ticket ticket = ticketDao.fetchTicketById(ticketId);
+		Viewer viewer = fetchViewerById(viewerId);
+		List<Ticket> list = viewer.getTickets();
+		list.add(ticket);
+		viewer.setTickets(list);
+		return saveViewer(viewer);
+	}
+	
+	public Viewer addNewTicketToExistingViewer(int viewerId, Ticket newTicket) {
+		Viewer viewer = fetchViewerById(viewerId);
+		List<Ticket> list = viewer.getTickets();
+		list.add(newTicket);
+		viewer.setTickets(list);
+		return saveViewer(viewer);
+	}
+	
+	public Viewer addExistingFoodToExistingViewer(int foodId, int viewerId) {
+		Food food = foodDao.fetchFoodById(foodId);
+		Viewer viewer = fetchViewerById(viewerId);
+		List<Food> list = viewer.getFoods();
+		list.add(food);
+		viewer.setFoods(list);
+		return saveViewer(viewer);
+	}
+	
+	public Viewer addNewFoodToExistingViewer(int viewerId, Food newFood) {
+		Viewer viewer = fetchViewerById(viewerId);
+		List<Food> list = viewer.getFoods();
+		list.add(newFood);
+		viewer.setFoods(list);
+		return saveViewer(viewer);
+	}
+	
 	public Viewer fetchViewerById(int viewerId) {
 		return viewerRepo.findById(viewerId).get();
 	}

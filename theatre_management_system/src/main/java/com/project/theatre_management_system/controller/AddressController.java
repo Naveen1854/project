@@ -1,7 +1,5 @@
 package com.project.theatre_management_system.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.theatre_management_system.dto.Address;
 import com.project.theatre_management_system.service.AddressService;
+import com.project.theatre_management_system.util.ResponseStructure;
+import com.project.theatre_management_system.util.ResponseStructureList;
 
 @RestController
 public class AddressController {
@@ -20,29 +20,28 @@ public class AddressController {
 	AddressService addressService;
 
 	@PostMapping("/saveAddress")
-	public Address saveAddress(@RequestBody Address address) {
+	public ResponseStructure<Address> saveAddress(@RequestBody Address address) {
 		return addressService.saveAddress(address);
 	}
 
 	@GetMapping("/fetchAddressById")
-	public Address fetchAddressById(@RequestParam int addressId) {
+	public ResponseStructure<Address> fetchAddressById(@RequestParam int addressId) {
 		return addressService.fetchAddressById(addressId);
 	}
 
 	@GetMapping("/fetchAllAddress")
-	public List<Address> fetchAllAddress() {
+	public ResponseStructureList<Address> fetchAllAddress() {
 		return addressService.fetchAllAddress();
 	}
 
 	@DeleteMapping("/deleteAddressById")
-	public Address deleteAddressById(@RequestParam int addressId) {
-		System.out.println("Address deleted successfully.");
+	public ResponseStructure<Address> deleteAddressById(@RequestParam int addressId) {
 		return addressService.deleteAddressById(addressId);
-		
 	}
 
 	@PutMapping("/updateAddressById")
-	public Address updateAddressById(@RequestParam int oldAddressId, @RequestBody Address newAddress) {
+	public ResponseStructure<Address> updateAddressById(@RequestParam int oldAddressId,
+			@RequestBody Address newAddress) {
 		return addressService.updateAddressById(oldAddressId, newAddress);
 	}
 }

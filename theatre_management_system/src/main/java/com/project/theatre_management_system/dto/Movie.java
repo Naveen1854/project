@@ -1,12 +1,14 @@
 package com.project.theatre_management_system.dto;
 
 import java.sql.Time;
+import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
 @Entity
@@ -22,6 +24,12 @@ public class Movie {
 
 	@OneToOne(cascade = CascadeType.ALL)
 	private Screen screen;
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Viewer> viewers;
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Review> reviews;
 	
 	public int getMovieId() {
 		return movieId;
@@ -77,6 +85,22 @@ public class Movie {
 
 	public void setScreen(Screen screen) {
 		this.screen = screen;
+	}
+
+	public List<Viewer> getViewers() {
+		return viewers;
+	}
+
+	public void setViewers(List<Viewer> viewers) {
+		this.viewers = viewers;
+	}
+
+	public List<Review> getReviews() {
+		return reviews;
+	}
+
+	public void setReviews(List<Review> reviews) {
+		this.reviews = reviews;
 	}
 
 }

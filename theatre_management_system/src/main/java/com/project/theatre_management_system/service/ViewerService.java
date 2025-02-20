@@ -1,12 +1,15 @@
 package com.project.theatre_management_system.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.project.theatre_management_system.dao.ViewerDao;
+import com.project.theatre_management_system.dto.Food;
+import com.project.theatre_management_system.dto.Ticket;
 import com.project.theatre_management_system.dto.Viewer;
+import com.project.theatre_management_system.util.ResponseStructure;
+import com.project.theatre_management_system.util.ResponseStructureList;
 
 @Service
 public class ViewerService {
@@ -14,27 +17,79 @@ public class ViewerService {
 	@Autowired
 	ViewerDao viewerDao;
 	
-	public Viewer saveViewer(Viewer viewer) {
-		return viewerDao.saveViewer(viewer);
+	@Autowired
+	ResponseStructure<Viewer> responseStructure;
+	
+	@Autowired
+	ResponseStructureList<Viewer> responseStructureList;
+	
+	public ResponseStructure<Viewer> saveViewer(Viewer viewer) {
+		responseStructure.setStatusCode(HttpStatus.CREATED.value());
+		responseStructure.setMessage("Succesfully Saved the Owner into db");
+		responseStructure.setData(viewerDao.saveViewer(viewer));
+		return responseStructure;
 	}
 	
-	public Viewer addExistingSeatToExistingViewer(int seatId, int viewerId) {
-		return viewerDao.addExistingSeatToExistingViewer(seatId, viewerId);
+	public ResponseStructure<Viewer> addExistingSeatToExistingViewer(int seatId, int viewerId) {
+		responseStructure.setStatusCode(HttpStatus.FOUND.value());
+		responseStructure.setMessage("Succesfully Saved the Owner into db");
+		responseStructure.setData(viewerDao.addExistingSeatToExistingViewer(seatId, viewerId));
+		return responseStructure;
 	}
 	
-	public Viewer fetchViewerById(int viewerId) {
-		return viewerDao.fetchViewerById(viewerId);
+	public ResponseStructure<Viewer> fetchViewerById(int viewerId) {
+		responseStructure.setStatusCode(HttpStatus.FOUND.value());
+		responseStructure.setMessage("Succesfully Saved the Owner into db");
+		responseStructure.setData(viewerDao.fetchViewerById(viewerId));
+		return responseStructure;
 	}
 	
-	public List<Viewer> fetchAllViewer() {
-		return viewerDao.fetchAllViewer();
+	public ResponseStructureList<Viewer> fetchAllViewer() {
+		responseStructureList.setStatusCode(HttpStatus.FOUND.value());
+		responseStructureList.setMessage("Succesfully Address fetched by id from db");
+		responseStructureList.setData(viewerDao.fetchAllViewer());
+		return responseStructureList;
 	}
 	
-	public Viewer deleteViewerById(int ViewerId) {
-		return viewerDao.deleteViewerById(ViewerId);
+	public ResponseStructure<Viewer> deleteViewerById(int ViewerId) {
+		responseStructure.setStatusCode(HttpStatus.OK.value());
+		responseStructure.setMessage("Succesfully Address fetched by id from db");
+		responseStructure.setData(viewerDao.deleteViewerById(ViewerId));
+		return responseStructure;
 	}
 	
-	public Viewer updateViewerById(int oldViewerId, Viewer newViewer) {
-		return viewerDao.updateViewerById(oldViewerId, newViewer);
+	public ResponseStructure<Viewer> updateViewerById(int oldViewerId, Viewer newViewer) {
+		responseStructure.setStatusCode(HttpStatus.OK.value());
+		responseStructure.setMessage("Succesfully Address fetched by id from db");
+		responseStructure.setData(viewerDao.updateViewerById(oldViewerId, newViewer));
+		return responseStructure;
+	}
+	
+	public ResponseStructure<Viewer> addExistingTicketToExistingViewer(int ticketId, int viewerId) {
+		responseStructure.setStatusCode(HttpStatus.FOUND.value());
+		responseStructure.setMessage("Theatre successfully added to the Owner");
+		responseStructure.setData(viewerDao.addExistingTicketToExistingViewer(ticketId, viewerId));
+		return responseStructure;
+	}
+	
+	public ResponseStructure<Viewer> addNewTicketToExistingViewer(int viewerId, Ticket newTicket) {
+		responseStructure.setStatusCode(HttpStatus.FOUND.value());
+		responseStructure.setMessage("Theatre successfully added to the Owner");
+		responseStructure.setData(viewerDao.addNewTicketToExistingViewer(viewerId, newTicket));
+		return responseStructure;
+	}
+	
+	public ResponseStructure<Viewer> addExistingFoodToExistingViewer(int foodId, int viewerId) {
+		responseStructure.setStatusCode(HttpStatus.FOUND.value());
+		responseStructure.setMessage("Theatre successfully added to the Owner");
+		responseStructure.setData(viewerDao.addExistingFoodToExistingViewer(foodId, viewerId));
+		return responseStructure;
+	}
+	
+	public ResponseStructure<Viewer> addNewFoodToExistingViewer(int viewerId, Food newFood) {
+		responseStructure.setStatusCode(HttpStatus.FOUND.value());
+		responseStructure.setMessage("Theatre successfully added to the Owner");
+		responseStructure.setData(viewerDao.addNewFoodToExistingViewer(viewerId, newFood));
+		return responseStructure;
 	}
 }

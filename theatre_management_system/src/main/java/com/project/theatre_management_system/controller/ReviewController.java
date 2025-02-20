@@ -1,7 +1,5 @@
 package com.project.theatre_management_system.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,36 +11,36 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.theatre_management_system.dto.Review;
 import com.project.theatre_management_system.service.ReviewService;
+import com.project.theatre_management_system.util.ResponseStructure;
+import com.project.theatre_management_system.util.ResponseStructureList;
 
 @RestController
 public class ReviewController {
 	@Autowired
 	ReviewService reviewService;
-	
+
 	@PostMapping("/saveReview")
-	public Review saveReview(@RequestBody Review review) {
+	public ResponseStructure<Review> saveReview(@RequestBody Review review) {
 		return reviewService.saveReview(review);
 	}
-	
+
 	@GetMapping("/fetchReviewById")
-	public Review fetchReviewById(@RequestParam int reviewId) {
+	public ResponseStructure<Review> fetchReviewById(@RequestParam int reviewId) {
 		return reviewService.fetchReviewById(reviewId);
 	}
-	
+
 	@GetMapping("/fetchAllReview")
-	public List<Review> fetchAllReview() {
+	public ResponseStructureList<Review> fetchAllReview() {
 		return reviewService.fetchAllReview();
 	}
-	
+
 	@DeleteMapping("/deleteReviewById")
-	public Review deleteReviewById(@RequestParam int reviewId) {
+	public ResponseStructure<Review> deleteReviewById(@RequestParam int reviewId) {
 		return reviewService.deleteReviewById(reviewId);
 	}
-	
+
 	@PutMapping("/updateReviewById")
-	public Review updateReviewById(@RequestParam int oldReviewId, @RequestBody Review newReview) {
+	public ResponseStructure<Review> updateReviewById(@RequestParam int oldReviewId, @RequestBody Review newReview) {
 		return reviewService.updateReviewById(oldReviewId, newReview);
 	}
 }
-
-

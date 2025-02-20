@@ -1,12 +1,13 @@
 package com.project.theatre_management_system.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.project.theatre_management_system.dao.SeatDao;
 import com.project.theatre_management_system.dto.Seat;
+import com.project.theatre_management_system.util.ResponseStructure;
+import com.project.theatre_management_system.util.ResponseStructureList;
 
 @Service
 public class SeatService {
@@ -14,23 +15,44 @@ public class SeatService {
 	@Autowired
 	SeatDao seatDao;
 	
-	public Seat saveSeat(Seat Seat) {
-		return seatDao.saveSeat(Seat);
+	@Autowired
+	ResponseStructure<Seat> responseStructure;
+	
+	@Autowired
+	ResponseStructureList<Seat> responseStructureList;
+	
+	public ResponseStructure<Seat> saveSeat(Seat Seat) {
+		responseStructure.setStatusCode(HttpStatus.CREATED.value());
+		responseStructure.setMessage("Succesfully Saved the Owner into db");
+		responseStructure.setData(seatDao.saveSeat(Seat));
+		return responseStructure;
 	}
 	
-	public Seat fetchSeatById(int SeatId) {
-		return seatDao.fetchSeatById(SeatId);
+	public ResponseStructure<Seat> fetchSeatById(int SeatId) {
+		responseStructure.setStatusCode(HttpStatus.FOUND.value());
+		responseStructure.setMessage("Succesfully Saved the Owner into db");
+		responseStructure.setData(seatDao.fetchSeatById(SeatId));
+		return responseStructure;
 	}
 	
-	public List<Seat> fetchAllSeat() {
-		return seatDao.fetchAllSeat();
+	public ResponseStructureList<Seat> fetchAllSeat() {
+		responseStructureList.setStatusCode(HttpStatus.FOUND.value());
+		responseStructureList.setMessage("Succesfully Address fetched by id from db");
+		responseStructureList.setData(seatDao.fetchAllSeat());
+		return responseStructureList;
 	}
 	
-	public Seat deleteSeatById(int SeatId) {
-		return seatDao.deleteSeatById(SeatId);
+	public ResponseStructure<Seat> deleteSeatById(int SeatId) {
+		responseStructure.setStatusCode(HttpStatus.OK.value());
+		responseStructure.setMessage("Succesfully Address fetched by id from db");
+		responseStructure.setData(seatDao.deleteSeatById(SeatId));
+		return responseStructure;
 	}
 	
-	public Seat updateSeatById(int oldSeatId, Seat newSeat) {
-		return seatDao.updateSeatById(oldSeatId, newSeat);
+	public ResponseStructure<Seat> updateSeatById(int oldSeatId, Seat newSeat) {
+		responseStructure.setStatusCode(HttpStatus.OK.value());
+		responseStructure.setMessage("Succesfully Address fetched by id from db");
+		responseStructure.setData(seatDao.updateSeatById(oldSeatId, newSeat));
+		return responseStructure;
 	}
 }
