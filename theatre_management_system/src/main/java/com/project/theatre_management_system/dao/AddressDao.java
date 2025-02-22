@@ -1,6 +1,7 @@
 package com.project.theatre_management_system.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -16,21 +17,26 @@ public class AddressDao {
 	public Address saveAddress(Address address) {
 		return addressRepo.save(address);
 	}
-	
+
 	public Address fetchAddressById(int addressId) {
-		return addressRepo.findById(addressId).get();
+		Optional<Address> dbAddress = addressRepo.findById(addressId);
+		if (dbAddress.isPresent()) {
+			return dbAddress.get();
+		} else {
+			return null;
+		}
 	}
-	
+
 	public List<Address> fetchAllAddress() {
 		return addressRepo.findAll();
 	}
-	
+
 	public Address deleteAddressById(int addressId) {
 		Address address = fetchAddressById(addressId);
 		addressRepo.delete(address);
 		return address;
 	}
-	
+
 	public Address updateAddressById(int oldAddressId, Address newAddress) {
 		newAddress.setAddressId(oldAddressId);
 		return saveAddress(newAddress);

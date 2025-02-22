@@ -1,6 +1,7 @@
 package com.project.theatre_management_system.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -18,7 +19,10 @@ public class FoodDao {
 	}
 
 	public Food fetchFoodById(int foodId) {
-		return foodRepo.findById(foodId).get();
+		Optional<Food> dbFood = foodRepo.findById(foodId);
+		if (dbFood.isEmpty())
+			return null;
+		return dbFood.get();
 	}
 
 	public List<Food> fetchAllFood() {

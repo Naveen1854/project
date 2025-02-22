@@ -1,6 +1,7 @@
 package com.project.theatre_management_system.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -18,7 +19,11 @@ public class SeatDao {
 	}
 
 	public Seat fetchSeatById(int SeatId) {
-		return seatRepo.findById(SeatId).get();
+		Optional<Seat> dbSeat = seatRepo.findById(SeatId);
+		if (dbSeat.isEmpty())
+			return null;
+		return dbSeat.get();
+
 	}
 
 	public List<Seat> fetchAllSeat() {

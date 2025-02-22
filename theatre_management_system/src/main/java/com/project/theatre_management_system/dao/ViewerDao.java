@@ -1,6 +1,7 @@
 package com.project.theatre_management_system.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -72,7 +73,9 @@ public class ViewerDao {
 	}
 	
 	public Viewer fetchViewerById(int viewerId) {
-		return viewerRepo.findById(viewerId).get();
+		Optional<Viewer> dbViewer = viewerRepo.findById(viewerId);
+		if(dbViewer.isEmpty()) return null;
+		return dbViewer.get();
 	}
 
 	public List<Viewer> fetchAllViewer() {

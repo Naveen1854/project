@@ -1,6 +1,7 @@
 package com.project.theatre_management_system.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -30,7 +31,9 @@ public class TicketDao {
 	}
 
 	public Ticket fetchTicketById(int ticketId) {
-		return ticketRepo.findById(ticketId).get();
+		Optional<Ticket> dbTicket = ticketRepo.findById(ticketId);
+		if(dbTicket.isPresent()) return dbTicket.get();
+		return null;
 	}
 
 	public List<Ticket> fetchAllTicket() {

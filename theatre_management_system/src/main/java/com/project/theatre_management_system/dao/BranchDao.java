@@ -1,6 +1,7 @@
 package com.project.theatre_management_system.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -82,7 +83,12 @@ public class BranchDao {
 	}
 
 	public Branch fetchBranchById(int branchId) {
-		return branchRepo.findById(branchId).get();
+		Optional<Branch> dbBranch = branchRepo.findById(branchId);
+		if (dbBranch.isEmpty()) {
+			return null;
+		} else {
+			return dbBranch.get();
+		}
 	}
 
 	public List<Branch> fetchAllBranch() {

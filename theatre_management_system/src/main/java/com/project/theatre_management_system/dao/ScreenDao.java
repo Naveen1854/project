@@ -1,6 +1,7 @@
 package com.project.theatre_management_system.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -39,7 +40,10 @@ public class ScreenDao {
 	}
 
 	public Screen fetchScreenById(int ScreenId) {
-		return screenRepo.findById(ScreenId).get();
+		Optional<Screen> dbScreen = screenRepo.findById(ScreenId);
+		if (dbScreen.isEmpty())
+			return dbScreen.get();
+		return null;
 	}
 
 	public List<Screen> fetchAllScreen() {

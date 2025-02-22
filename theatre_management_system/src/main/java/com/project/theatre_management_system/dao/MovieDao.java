@@ -1,6 +1,7 @@
 package com.project.theatre_management_system.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -71,7 +72,10 @@ public class MovieDao {
 	}
 
 	public Movie fetchMovieById(int movieId) {
-		return movieRepo.findById(movieId).get();
+		Optional<Movie> dbMovie = movieRepo.findById(movieId);
+		if (dbMovie.isPresent())
+			return dbMovie.get();
+		return null;
 	}
 
 	public List<Movie> fetchAllMovie() {
