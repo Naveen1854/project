@@ -14,36 +14,56 @@ import com.project.theatre_management_system.service.OwnerService;
 import com.project.theatre_management_system.util.ResponseStructure;
 import com.project.theatre_management_system.util.ResponseStructureList;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
 @RestController
 public class OwnerController {
 	@Autowired
 	OwnerService ownerService;
 
+	@Operation(summary = "Save Owner", description = "API is used to save the Owner")
+	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully created") })
 	@PostMapping("/saveOwner")
 	public ResponseStructure<Owner> saveOwner(@RequestBody Owner owner) {
 		return ownerService.saveOwner(owner);
 	}
 
+	@Operation(summary = "fetch Owner", description = "API is used to fetch the Owner")
+	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully saved"),
+			@ApiResponse(responseCode = "404", description = "Owner not found for the given id") })
 	@GetMapping("/fetchOwnweById")
 	public ResponseStructure<Owner> fetchOwnerById(@RequestParam int ownerId) {
 		return ownerService.fetchOwnerById(ownerId);
 	}
 
+	@Operation(summary = "fetch all Owner", description = "API is used to fetch all the Owners")
+	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully fetched") })
 	@GetMapping("/fetchAllOwner")
 	public ResponseStructureList<Owner> fetchAllOwner() {
 		return ownerService.fetchAllOwner();
 	}
 
+	@Operation(summary = "delete Owner", description = "API is used to delete the Owner")
+	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully deleted"),
+			@ApiResponse(responseCode = "404", description = "Owner not found for the given id") })
 	@DeleteMapping("/deleteOwnerById")
 	public ResponseStructure<Owner> deleteOwnerById(@RequestParam int ownerId) {
 		return ownerService.deleteOwnerById(ownerId);
 	}
 
+	@Operation(summary = "update Owner", description = "API is used to update the Owner")
+	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully updated"),
+			@ApiResponse(responseCode = "404", description = "Owner not found for the given id") })
 	@PutMapping("/updateOwnerById")
 	public ResponseStructure<Owner> updateOwnerById(@RequestParam int oldOwnerId, @RequestBody Owner newOwner) {
 		return ownerService.updateOwnerById(oldOwnerId, newOwner);
 	}
 
+	@Operation(summary = "add Existing Theatre To Existing Owner", description = "API is used to add Existing Theatre To Existing Owner")
+	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully added"),
+			@ApiResponse(responseCode = "404", description = "Owner/theatre not found for the given id") })
 	@PutMapping("/addExistingTheatreToExistingOwner")
 	public ResponseStructure<Owner> addExistingTheatreToExistingOwner(@RequestParam int theatreId,
 			@RequestParam int ownerId) {

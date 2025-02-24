@@ -14,10 +14,18 @@ import com.project.theatre_management_system.service.AddressService;
 import com.project.theatre_management_system.util.ResponseStructure;
 import com.project.theatre_management_system.util.ResponseStructureList;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
 @RestController
 public class AddressController {
 	@Autowired
 	AddressService addressService;
+	
+	@Operation(summary = "Save Address", description = "API is used to save the Address")
+	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully created")})
+//	@ApiResponse(responseCode = "404", description = "Address not found for the given id") })
 
 	@PostMapping("/saveAddress")
 	public ResponseStructure<Address> saveAddress(@RequestBody Address address) {

@@ -24,7 +24,7 @@ public class StaffService {
 	
 	public ResponseStructure<Staff> saveStaff(Staff staff) {
 		responseStructure.setStatusCode(HttpStatus.CREATED.value());
-		responseStructure.setMessage("Succesfully Saved the Owner into db");
+		responseStructure.setMessage("Succesfully Saved the staff into db");
 		responseStructure.setData(staffDao.saveStaff(staff));
 		return responseStructure;
 	}
@@ -33,7 +33,7 @@ public class StaffService {
 		Staff staff = staffDao.fetchStaffById(staffId);
 		if(staff != null) {
 		responseStructure.setStatusCode(HttpStatus.FOUND.value());
-		responseStructure.setMessage("Succesfully Saved the Owner into db");
+		responseStructure.setMessage("Succesfully fetched the staff by id from db");
 		responseStructure.setData(staffDao.fetchStaffById(staffId));
 		return responseStructure;
 		}else {
@@ -43,7 +43,7 @@ public class StaffService {
 	
 	public ResponseStructureList<Staff> fetchAllStaff() {
 		responseStructureList.setStatusCode(HttpStatus.FOUND.value());
-		responseStructureList.setMessage("Succesfully Address fetched by id from db");
+		responseStructureList.setMessage("Succesfully All staff fetched from db");
 		responseStructureList.setData(staffDao.fetchAllStaff());
 		return responseStructureList;
 	}
