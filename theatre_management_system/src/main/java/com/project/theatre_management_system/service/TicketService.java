@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.theatre_management_system.dao.TicketDao;
 import com.project.theatre_management_system.dto.Ticket;
+import com.project.theatre_management_system.exception.TicketIdNotFound;
 import com.project.theatre_management_system.util.ResponseStructure;
 import com.project.theatre_management_system.util.ResponseStructureList;
 
@@ -36,10 +37,15 @@ public class TicketService {
 	}
 	
 	public ResponseStructure<Ticket> fetchTicketById(int ticketId) {
+		Ticket ticket = ticketDao.fetchTicketById(ticketId);
+		if(ticket != null) {
 		responseStructure.setStatusCode(HttpStatus.FOUND.value());
 		responseStructure.setMessage("Succesfully Saved the Owner into db");
 		responseStructure.setData(ticketDao.fetchTicketById(ticketId));
 		return responseStructure;
+		}else {
+			throw new TicketIdNotFound();
+		}
 	}
 	
 	public ResponseStructureList<Ticket> fetchAllTicket() {
@@ -50,16 +56,26 @@ public class TicketService {
 	}
 	
 	public ResponseStructure<Ticket> deleteTicketById(int ticketId) {
+		Ticket ticket = ticketDao.fetchTicketById(ticketId);
+		if(ticket != null) {
 		responseStructure.setStatusCode(HttpStatus.OK.value());
 		responseStructure.setMessage("Succesfully Address fetched by id from db");
 		responseStructure.setData(ticketDao.deleteTicketById(ticketId));
 		return responseStructure;
+		}else {
+			throw new TicketIdNotFound();
+		}
 	}
 	
 	public ResponseStructure<Ticket> updateTicketById(int oldTicketId, Ticket newTicket) {
+		Ticket ticket = ticketDao.fetchTicketById(oldTicketId);
+		if(ticket != null) {
 		responseStructure.setStatusCode(HttpStatus.OK.value());
 		responseStructure.setMessage("Succesfully Address fetched by id from db");
 		responseStructure.setData(ticketDao.updateTicketById(oldTicketId, newTicket));
 		return responseStructure;
+		}else {
+			throw new TicketIdNotFound();
+		}
 	}
 }

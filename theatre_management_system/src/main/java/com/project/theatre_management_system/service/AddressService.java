@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.theatre_management_system.dao.AddressDao;
 import com.project.theatre_management_system.dto.Address;
+import com.project.theatre_management_system.exception.AddressIdNotFound;
 import com.project.theatre_management_system.util.ResponseStructure;
 import com.project.theatre_management_system.util.ResponseStructureList;
 
@@ -13,10 +14,10 @@ import com.project.theatre_management_system.util.ResponseStructureList;
 public class AddressService {
 	@Autowired
 	AddressDao addressDao;
-	
+
 	@Autowired
 	ResponseStructure<Address> responseStructure;
-	
+
 	@Autowired
 	ResponseStructureList<Address> responseStructureList;
 
@@ -28,10 +29,15 @@ public class AddressService {
 	}
 
 	public ResponseStructure<Address> fetchAddressById(int addressId) {
-		responseStructure.setStatusCode(HttpStatus.FOUND.value());
-		responseStructure.setMessage("Succesfully Address fetched by id from db");
-		responseStructure.setData(addressDao.fetchAddressById(addressId));
-		return responseStructure;
+		Address address = addressDao.fetchAddressById(addressId);
+		if (address != null) {
+			responseStructure.setStatusCode(HttpStatus.FOUND.value());
+			responseStructure.setMessage("Succesfully Address fetched by id from db");
+			responseStructure.setData(addressDao.fetchAddressById(addressId));
+			return responseStructure;
+		} else {
+			throw new AddressIdNotFound();
+		}
 	}
 
 	public ResponseStructureList<Address> fetchAllAddress() {
@@ -42,17 +48,27 @@ public class AddressService {
 	}
 
 	public ResponseStructure<Address> deleteAddressById(int addressId) {
-		responseStructure.setStatusCode(HttpStatus.OK.value());
-		responseStructure.setMessage("Succesfully Address deleted by id from db");
-		responseStructure.setData(addressDao.deleteAddressById(addressId));
-		return responseStructure;
+		Address address = addressDao.fetchAddressById(addressId);
+		if (address != null) {
+			responseStructure.setStatusCode(HttpStatus.OK.value());
+			responseStructure.setMessage("Succesfully Address deleted by id from db");
+			responseStructure.setData(addressDao.deleteAddressById(addressId));
+			return responseStructure;
+		} else {
+			throw new AddressIdNotFound();
+		}
 	}
 
 	public ResponseStructure<Address> updateAddressById(int oldAddressId, Address newAddress) {
+		Address address = addressDao.fetchAddressById(oldAddressId);
+		if (address != null) {
 		responseStructure.setStatusCode(HttpStatus.OK.value());
 		responseStructure.setMessage("Succesfully Address updated by id in db");
 		responseStructure.setData(addressDao.updateAddressById(oldAddressId, newAddress));
 		return responseStructure;
+		}else {
+			throw new AddressIdNotFound();
+		}
 	}
 
 }

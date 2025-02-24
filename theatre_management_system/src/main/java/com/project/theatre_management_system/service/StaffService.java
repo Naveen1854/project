@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.theatre_management_system.dao.StaffDao;
 import com.project.theatre_management_system.dto.Staff;
+import com.project.theatre_management_system.exception.StaffIdNotFound;
 import com.project.theatre_management_system.util.ResponseStructure;
 import com.project.theatre_management_system.util.ResponseStructureList;
 
@@ -29,10 +30,15 @@ public class StaffService {
 	}
 	
 	public ResponseStructure<Staff> fetchStaffById(int staffId) {
+		Staff staff = staffDao.fetchStaffById(staffId);
+		if(staff != null) {
 		responseStructure.setStatusCode(HttpStatus.FOUND.value());
 		responseStructure.setMessage("Succesfully Saved the Owner into db");
 		responseStructure.setData(staffDao.fetchStaffById(staffId));
 		return responseStructure;
+		}else {
+			throw new StaffIdNotFound();
+		}
 	}
 	
 	public ResponseStructureList<Staff> fetchAllStaff() {
@@ -43,16 +49,26 @@ public class StaffService {
 	}
 	
 	public ResponseStructure<Staff> deleteStaffById(int staffId) {
+		Staff staff = staffDao.fetchStaffById(staffId);
+		if(staff != null) {
 		responseStructure.setStatusCode(HttpStatus.OK.value());
 		responseStructure.setMessage("Succesfully Address fetched by id from db");
 		responseStructure.setData(staffDao.deleteStaffById(staffId));
 		return responseStructure;
+		}else {
+			throw new StaffIdNotFound();
+		}
 	}
 	
 	public ResponseStructure<Staff> updateStaffById(int oldStaffId, Staff newStaff) {
+		Staff staff = staffDao.fetchStaffById(oldStaffId);
+		if(staff != null) {
 		responseStructure.setStatusCode(HttpStatus.OK.value());
 		responseStructure.setMessage("Succesfully Address fetched by id from db");
 		responseStructure.setData(staffDao.updateStaffById(oldStaffId, newStaff));
 		return responseStructure;
+		}else {
+			throw new StaffIdNotFound();
+		}
 	}
 }

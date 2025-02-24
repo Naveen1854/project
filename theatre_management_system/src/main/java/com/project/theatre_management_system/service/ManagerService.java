@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.theatre_management_system.dao.ManagerDao;
 import com.project.theatre_management_system.dto.Manager;
+import com.project.theatre_management_system.exception.ManagerIdNotFound;
 import com.project.theatre_management_system.util.ResponseStructure;
 import com.project.theatre_management_system.util.ResponseStructureList;
 
@@ -28,10 +29,15 @@ public class ManagerService {
 	}
 	
 	public ResponseStructure<Manager> fetchManagerById(int managerId) {
+		Manager manager = managerDao.fetchManagerById(managerId);
+		if (manager != null) {
 		responseStructure.setStatusCode(HttpStatus.FOUND.value());
 		responseStructure.setMessage("Successfullyg Manager fetched By Id");
 		responseStructure.setData(managerDao.fetchManagerById(managerId));
 		return responseStructure;
+		}else {
+			throw new ManagerIdNotFound();
+		}
 	}
 	
 	public ResponseStructureList<Manager> fetchAllManager(){
@@ -42,16 +48,26 @@ public class ManagerService {
 	}
 	
 	public ResponseStructure<Manager> deleteManagerById(int managerId) {
+		Manager manager = managerDao.fetchManagerById(managerId);
+		if (manager != null) {
 		responseStructure.setStatusCode(HttpStatus.OK.value());
 		responseStructure.setMessage("Succesfully Manager deleated by id from db");
 		responseStructure.setData(managerDao.deleteManagerById(managerId));
 		return responseStructure;
+		}else {
+			throw new ManagerIdNotFound();
+		}
 	}
 	
 	public ResponseStructure<Manager> updateManagerById(int oldManager, Manager newManger) {
+		Manager manager = managerDao.fetchManagerById(oldManager);
+		if(manager != null) {
 		responseStructure.setStatusCode(HttpStatus.OK.value());
 		responseStructure.setMessage("Succesfully Manager updated by id in db");
 		responseStructure.setData(managerDao.updateManagerById(oldManager, newManger));
 		return responseStructure;
+		}else {
+			throw new ManagerIdNotFound();
+		}
 	}
 }

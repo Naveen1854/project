@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.theatre_management_system.dao.PaymentDao;
 import com.project.theatre_management_system.dto.Payment;
+import com.project.theatre_management_system.exception.PaymentIdNotFound;
 import com.project.theatre_management_system.util.ResponseStructure;
 import com.project.theatre_management_system.util.ResponseStructureList;
 
@@ -13,45 +14,60 @@ import com.project.theatre_management_system.util.ResponseStructureList;
 public class PaymentService {
 	@Autowired
 	PaymentDao paymentDao;
-	
+
 	@Autowired
 	ResponseStructure<Payment> responseStructure;
-	
+
 	@Autowired
 	ResponseStructureList<Payment> responseStructureList;
-	
+
 	public ResponseStructure<Payment> savePayment(Payment payment) {
 		responseStructure.setStatusCode(HttpStatus.CREATED.value());
 		responseStructure.setMessage("Successfully saved the Manager into db");
 		responseStructure.setData(paymentDao.savePayment(payment));
 		return responseStructure;
 	}
-	
+
 	public ResponseStructure<Payment> fetchPaymentById(int paymentId) {
-		responseStructure.setStatusCode(HttpStatus.FOUND.value());
-		responseStructure.setMessage("Successfully saved the Manager into db");
-		responseStructure.setData(paymentDao.fetchPaymentById(paymentId));
-		return responseStructure;
+		Payment payment = paymentDao.fetchPaymentById(paymentId);
+		if (payment != null) {
+			responseStructure.setStatusCode(HttpStatus.FOUND.value());
+			responseStructure.setMessage("Successfully saved the Manager into db");
+			responseStructure.setData(paymentDao.fetchPaymentById(paymentId));
+			return responseStructure;
+		} else {
+			throw new PaymentIdNotFound();
+		}
 	}
-	
+
 	public ResponseStructureList<Payment> fetchAllPayment() {
 		responseStructureList.setStatusCode(HttpStatus.FOUND.value());
 		responseStructureList.setMessage("Succesfully Address fetched by id from db");
 		responseStructureList.setData(paymentDao.fetchAllPayment());
 		return responseStructureList;
 	}
-	
+
 	public ResponseStructure<Payment> deletePaymentById(int paymentId) {
-		responseStructure.setStatusCode(HttpStatus.OK.value());
-		responseStructure.setMessage("Succesfully Address fetched by id from db");
-		responseStructure.setData(paymentDao.deletePaymentById(paymentId));
-		return responseStructure;
+		Payment payment = paymentDao.fetchPaymentById(paymentId);
+		if (payment != null) {
+			responseStructure.setStatusCode(HttpStatus.OK.value());
+			responseStructure.setMessage("Succesfully Address fetched by id from db");
+			responseStructure.setData(paymentDao.deletePaymentById(paymentId));
+			return responseStructure;
+		} else {
+			throw new PaymentIdNotFound();
+		}
 	}
-	
+
 	public ResponseStructure<Payment> updatePaymentById(int oldPaymentId, Payment newPayment) {
-		responseStructure.setStatusCode(HttpStatus.OK.value());
-		responseStructure.setMessage("Succesfully Address fetched by id from db");
-		responseStructure.setData(paymentDao.updatePaymentById(oldPaymentId, newPayment));
-		return responseStructure;
+		Payment payment = paymentDao.fetchPaymentById(oldPaymentId);
+		if (payment != null) {
+			responseStructure.setStatusCode(HttpStatus.OK.value());
+			responseStructure.setMessage("Succesfully Address fetched by id from db");
+			responseStructure.setData(paymentDao.updatePaymentById(oldPaymentId, newPayment));
+			return responseStructure;
+		} else {
+			throw new PaymentIdNotFound();
+		}
 	}
 }
