@@ -1,6 +1,7 @@
 package com.project.theatre_management_system.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,7 +29,7 @@ public class TheatreController {
 	@Operation(summary = "Save Theatre", description = "API is used to save the Theatre")
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully created") })
 	@PostMapping("/saveTheatre")
-	public ResponseStructure<Theatre> saveTheatre(@RequestBody Theatre theatre) {
+	public ResponseEntity<ResponseStructure<Theatre>> saveTheatre(@RequestBody Theatre theatre) {
 		return theatreService.saveTheatre(theatre);
 	}
 
@@ -36,7 +37,7 @@ public class TheatreController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully added"),
 			@ApiResponse(responseCode = "404", description = "Branch/Theatre not found for the given id") })
 	@PutMapping("/addExistingBranchToExistingTheatre")
-	public ResponseStructure<Theatre> addExistingBranchToExistingTheatre(@RequestParam int branchId,
+	public ResponseEntity<ResponseStructure<Theatre>> addExistingBranchToExistingTheatre(@RequestParam int branchId,
 			@RequestParam int theatreId) {
 		return theatreService.addExistingBranchToExistingTheatre(branchId, theatreId);
 	}
@@ -45,7 +46,7 @@ public class TheatreController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully added"),
 			@ApiResponse(responseCode = "404", description = "Theatre/newBranch not found for the given id") })
 	@PutMapping("/addNewBranchToExistingTheatre")
-	public ResponseStructure<Theatre> addNewBranchToExistingTheatre(@RequestParam int theatreId,
+	public ResponseEntity<ResponseStructure<Theatre>> addNewBranchToExistingTheatre(@RequestParam int theatreId,
 			@RequestBody Branch newBranch) {
 		return theatreService.addNewBranchToExistingTheatre(theatreId, newBranch);
 	}
@@ -54,14 +55,14 @@ public class TheatreController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully saved"),
 			@ApiResponse(responseCode = "404", description = "Theatre not found for the given id") })
 	@GetMapping("/fetchTheatreById")
-	public ResponseStructure<Theatre> fetchTheatreById(@RequestParam int theatreId) {
+	public ResponseEntity<ResponseStructure<Theatre>> fetchTheatreById(@RequestParam int theatreId) {
 		return theatreService.fetchTheatreById(theatreId);
 	}
 
 	@Operation(summary = "fetch all Theatre", description = "API is used to fetch all the Theatre")
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully fetched") })
 	@GetMapping("/fetchAllTheatre")
-	public ResponseStructureList<Theatre> fetchAllTheatre() {
+	public ResponseEntity<ResponseStructureList<Theatre>> fetchAllTheatre() {
 		return theatreService.fetchAllTheatre();
 	}
 
@@ -69,7 +70,7 @@ public class TheatreController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully deleted"),
 			@ApiResponse(responseCode = "404", description = "Theatre not found for the given id") })
 	@DeleteMapping("/deleteTheatreById")
-	public ResponseStructure<Theatre> deleteTheatreById(@RequestParam int theatreId) {
+	public ResponseEntity<ResponseStructure<Theatre>> deleteTheatreById(@RequestParam int theatreId) {
 		return theatreService.deleteTheatreById(theatreId);
 	}
 
@@ -77,7 +78,7 @@ public class TheatreController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully updated"),
 			@ApiResponse(responseCode = "404", description = "Theatre not found for the given id") })
 	@PutMapping("/updateTheatreById")
-	public ResponseStructure<Theatre> updateTheatreById(@RequestParam int oldTheatreId,
+	public ResponseEntity<ResponseStructure<Theatre>> updateTheatreById(@RequestParam int oldTheatreId,
 			@RequestBody Theatre newTheatre) {
 		return theatreService.updateTheatreById(oldTheatreId, newTheatre);
 	}

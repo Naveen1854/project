@@ -1,6 +1,7 @@
 package com.project.theatre_management_system.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,7 +27,7 @@ public class PaymentController {
 	@Operation(summary = "Save Payment", description = "API is used to save the Payment")
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully created") })
 	@PostMapping("/savePayment")
-	public ResponseStructure<Payment> savePayment(@RequestBody Payment payment) {
+	public ResponseEntity<ResponseStructure<Payment>> savePayment(@RequestBody Payment payment) {
 		return paymentService.savePayment(payment);
 	}
 
@@ -34,14 +35,14 @@ public class PaymentController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully saved"),
 			@ApiResponse(responseCode = "404", description = "Payment not found for the given id") })
 	@GetMapping("/fetchPaymentById")
-	public ResponseStructure<Payment> fetchPaymentById(@RequestParam int paymentId) {
+	public ResponseEntity<ResponseStructure<Payment>> fetchPaymentById(@RequestParam int paymentId) {
 		return paymentService.fetchPaymentById(paymentId);
 	}
 
 	@Operation(summary = "fetch all Payment", description = "API is used to fetch all the Paysment")
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully fetched") })
 	@GetMapping("/fetchAllPayment")
-	public ResponseStructureList<Payment> fetchAllPayment() {
+	public ResponseEntity<ResponseStructureList<Payment>> fetchAllPayment() {
 		return paymentService.fetchAllPayment();
 	}
 
@@ -49,7 +50,7 @@ public class PaymentController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully saved"),
 			@ApiResponse(responseCode = "404", description = "Payment not found for the given id") })
 	@DeleteMapping("/deletePaymentById")
-	public ResponseStructure<Payment> deletePaymentById(@RequestParam int paymentId) {
+	public ResponseEntity<ResponseStructure<Payment>> deletePaymentById(@RequestParam int paymentId) {
 		return paymentService.deletePaymentById(paymentId);
 	}
 
@@ -57,7 +58,7 @@ public class PaymentController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully updated"),
 			@ApiResponse(responseCode = "404", description = "Payment not found for the given id") })
 	@PutMapping("/updatePaymentById")
-	public ResponseStructure<Payment> updatePaymentById(@RequestParam int oldPaymentId,
+	public ResponseEntity<ResponseStructure<Payment>> updatePaymentById(@RequestParam int oldPaymentId,
 			@RequestBody Payment newPayment) {
 		return paymentService.updatePaymentById(oldPaymentId, newPayment);
 	}

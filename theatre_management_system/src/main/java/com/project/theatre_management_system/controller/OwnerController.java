@@ -1,6 +1,7 @@
 package com.project.theatre_management_system.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,7 +27,7 @@ public class OwnerController {
 	@Operation(summary = "Save Owner", description = "API is used to save the Owner")
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully created") })
 	@PostMapping("/saveOwner")
-	public ResponseStructure<Owner> saveOwner(@RequestBody Owner owner) {
+	public ResponseEntity<ResponseStructure<Owner>> saveOwner(@RequestBody Owner owner) {
 		return ownerService.saveOwner(owner);
 	}
 
@@ -34,14 +35,14 @@ public class OwnerController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully saved"),
 			@ApiResponse(responseCode = "404", description = "Owner not found for the given id") })
 	@GetMapping("/fetchOwnweById")
-	public ResponseStructure<Owner> fetchOwnerById(@RequestParam int ownerId) {
+	public ResponseEntity<ResponseStructure<Owner>> fetchOwnerById(@RequestParam int ownerId) {
 		return ownerService.fetchOwnerById(ownerId);
 	}
 
 	@Operation(summary = "fetch all Owner", description = "API is used to fetch all the Owners")
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully fetched") })
 	@GetMapping("/fetchAllOwner")
-	public ResponseStructureList<Owner> fetchAllOwner() {
+	public ResponseEntity<ResponseStructureList<Owner>> fetchAllOwner() {
 		return ownerService.fetchAllOwner();
 	}
 
@@ -49,7 +50,7 @@ public class OwnerController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully deleted"),
 			@ApiResponse(responseCode = "404", description = "Owner not found for the given id") })
 	@DeleteMapping("/deleteOwnerById")
-	public ResponseStructure<Owner> deleteOwnerById(@RequestParam int ownerId) {
+	public ResponseEntity<ResponseStructure<Owner>> deleteOwnerById(@RequestParam int ownerId) {
 		return ownerService.deleteOwnerById(ownerId);
 	}
 
@@ -57,7 +58,8 @@ public class OwnerController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully updated"),
 			@ApiResponse(responseCode = "404", description = "Owner not found for the given id") })
 	@PutMapping("/updateOwnerById")
-	public ResponseStructure<Owner> updateOwnerById(@RequestParam int oldOwnerId, @RequestBody Owner newOwner) {
+	public ResponseEntity<ResponseStructure<Owner>> updateOwnerById(@RequestParam int oldOwnerId,
+			@RequestBody Owner newOwner) {
 		return ownerService.updateOwnerById(oldOwnerId, newOwner);
 	}
 
@@ -65,7 +67,7 @@ public class OwnerController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully added"),
 			@ApiResponse(responseCode = "404", description = "Owner/theatre not found for the given id") })
 	@PutMapping("/addExistingTheatreToExistingOwner")
-	public ResponseStructure<Owner> addExistingTheatreToExistingOwner(@RequestParam int theatreId,
+	public ResponseEntity<ResponseStructure<Owner>> addExistingTheatreToExistingOwner(@RequestParam int theatreId,
 			@RequestParam int ownerId) {
 		return ownerService.addExistingTheatreToExistingOwner(theatreId, ownerId);
 	}

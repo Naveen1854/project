@@ -2,6 +2,7 @@ package com.project.theatre_management_system.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.project.theatre_management_system.dao.TicketDao;
@@ -22,58 +23,58 @@ public class TicketService {
 	@Autowired
 	ResponseStructureList<Ticket> responseStructureList;
 	
-	public ResponseStructure<Ticket> saveTicket(Ticket ticket) {
+	public ResponseEntity<ResponseStructure<Ticket>> saveTicket(Ticket ticket) {
 		responseStructure.setStatusCode(HttpStatus.CREATED.value());
-		responseStructure.setMessage("Succesfully Saved the Owner into db");
+		responseStructure.setMessage("Succesfully Saved the Ticket into db");
 		responseStructure.setData(ticketDao.saveTicket(ticket));
-		return responseStructure;
+		return new ResponseEntity<ResponseStructure<Ticket>>(responseStructure,HttpStatus.CREATED);
 	}
 	
-	public ResponseStructure<Ticket> addExistingPaymentToExistingTicket(int paymentId, int ticketId) {
+	public ResponseEntity<ResponseStructure<Ticket>> addExistingPaymentToExistingTicket(int paymentId, int ticketId) {
 		responseStructure.setStatusCode(HttpStatus.FOUND.value());
-		responseStructure.setMessage("Succesfully Saved the Owner into db");
+		responseStructure.setMessage("Succesfully added Existing Payment To Existing Ticket in to db");
 		responseStructure.setData(ticketDao.addExistingPaymentToExistingTicket(paymentId, ticketId));
-		return responseStructure;
+		return new ResponseEntity<ResponseStructure<Ticket>>(responseStructure,HttpStatus.FOUND);
 	}
 	
-	public ResponseStructure<Ticket> fetchTicketById(int ticketId) {
+	public ResponseEntity<ResponseStructure<Ticket>> fetchTicketById(int ticketId) {
 		Ticket ticket = ticketDao.fetchTicketById(ticketId);
 		if(ticket != null) {
 		responseStructure.setStatusCode(HttpStatus.FOUND.value());
-		responseStructure.setMessage("Succesfully Saved the Owner into db");
+		responseStructure.setMessage("Succesfully fetched Ticket By Id from db");
 		responseStructure.setData(ticketDao.fetchTicketById(ticketId));
-		return responseStructure;
+		return new ResponseEntity<ResponseStructure<Ticket>>(responseStructure,HttpStatus.FOUND);
 		}else {
 			throw new TicketIdNotFound();
 		}
 	}
 	
-	public ResponseStructureList<Ticket> fetchAllTicket() {
+	public ResponseEntity<ResponseStructureList<Ticket>> fetchAllTicket() {
 		responseStructureList.setStatusCode(HttpStatus.FOUND.value());
-		responseStructureList.setMessage("Succesfully Address fetched by id from db");
+		responseStructureList.setMessage("Succesfully fetch All Tickets from db");
 		responseStructureList.setData(ticketDao.fetchAllTicket());
-		return responseStructureList;
+		return new ResponseEntity<ResponseStructureList<Ticket>>(responseStructureList,HttpStatus.FOUND);
 	}
 	
-	public ResponseStructure<Ticket> deleteTicketById(int ticketId) {
+	public ResponseEntity<ResponseStructure<Ticket>> deleteTicketById(int ticketId) {
 		Ticket ticket = ticketDao.fetchTicketById(ticketId);
 		if(ticket != null) {
 		responseStructure.setStatusCode(HttpStatus.OK.value());
-		responseStructure.setMessage("Succesfully Address fetched by id from db");
+		responseStructure.setMessage("Succesfully deleted Ticket By Id from db");
 		responseStructure.setData(ticketDao.deleteTicketById(ticketId));
-		return responseStructure;
+		return new ResponseEntity<ResponseStructure<Ticket>>(responseStructure,HttpStatus.OK);
 		}else {
 			throw new TicketIdNotFound();
 		}
 	}
 	
-	public ResponseStructure<Ticket> updateTicketById(int oldTicketId, Ticket newTicket) {
+	public ResponseEntity<ResponseStructure<Ticket>> updateTicketById(int oldTicketId, Ticket newTicket) {
 		Ticket ticket = ticketDao.fetchTicketById(oldTicketId);
 		if(ticket != null) {
 		responseStructure.setStatusCode(HttpStatus.OK.value());
-		responseStructure.setMessage("Succesfully Address fetched by id from db");
+		responseStructure.setMessage("Succesfully updated Ticket By Id from db");
 		responseStructure.setData(ticketDao.updateTicketById(oldTicketId, newTicket));
-		return responseStructure;
+		return new ResponseEntity<ResponseStructure<Ticket>>(responseStructure,HttpStatus.OK);
 		}else {
 			throw new TicketIdNotFound();
 		}

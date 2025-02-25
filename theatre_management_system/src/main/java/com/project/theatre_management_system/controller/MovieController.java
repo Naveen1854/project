@@ -1,6 +1,7 @@
 package com.project.theatre_management_system.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,7 +30,7 @@ public class MovieController {
 	@Operation(summary = "Save Movie", description = "API is used to save the Movie")
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully created") })
 	@PostMapping("/saveMovie")
-	public ResponseStructure<Movie> saveMovie(@RequestBody Movie movie) {
+	public ResponseEntity<ResponseStructure<Movie>> saveMovie(@RequestBody Movie movie) {
 		return movieService.saveMovie(movie);
 	}
 
@@ -37,14 +38,14 @@ public class MovieController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully saved"),
 			@ApiResponse(responseCode = "404", description = "Movie not found for the given id") })
 	@GetMapping("/fetchMovieById")
-	public ResponseStructure<Movie> fetchMovieById(@RequestParam int movieId) {
+	public ResponseEntity<ResponseStructure<Movie>> fetchMovieById(@RequestParam int movieId) {
 		return movieService.fetchMovieById(movieId);
 	}
 
 	@Operation(summary = "fetch all Movie", description = "API is used to fetch all the Movies")
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully fetched") })
 	@GetMapping("/fetchAllMovie")
-	public ResponseStructureList<Movie> fetchAllMovie() {
+	public ResponseEntity<ResponseStructureList<Movie>> fetchAllMovie() {
 		return movieService.fetchAllMovie();
 	}
 
@@ -52,7 +53,7 @@ public class MovieController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully deleted"),
 			@ApiResponse(responseCode = "404", description = "Movie not found for the given id") })
 	@DeleteMapping("/deleteMovieById")
-	public ResponseStructure<Movie> deleteMovieById(@RequestParam int movieId) {
+	public ResponseEntity<ResponseStructure<Movie>> deleteMovieById(@RequestParam int movieId) {
 		return movieService.deleteMovieById(movieId);
 	}
 
@@ -60,7 +61,8 @@ public class MovieController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully updated"),
 			@ApiResponse(responseCode = "404", description = "Movie not found for the given id") })
 	@PutMapping("/updateMovieById")
-	public ResponseStructure<Movie> updateMovieById(@RequestParam int oldMovieId, @RequestBody Movie newMovie) {
+	public ResponseEntity<ResponseStructure<Movie>> updateMovieById(@RequestParam int oldMovieId,
+			@RequestBody Movie newMovie) {
 		return movieService.updateMovieById(oldMovieId, newMovie);
 	}
 
@@ -69,7 +71,7 @@ public class MovieController {
 			@ApiResponse(responseCode = "201", description = "Successfully addExistingScreenToExistingMovie"),
 			@ApiResponse(responseCode = "404", description = "Screen/Movie not found for the given id") })
 	@PutMapping("/addExistingScreenToExistingMovie")
-	public ResponseStructure<Movie> addExistingScreenToExistingMovie(@RequestParam int screenId,
+	public ResponseEntity<ResponseStructure<Movie>> addExistingScreenToExistingMovie(@RequestParam int screenId,
 			@RequestParam int movieId) {
 		return movieService.addExistingScreenToExistingMovie(screenId, movieId);
 	}
@@ -79,7 +81,7 @@ public class MovieController {
 			@ApiResponse(responseCode = "201", description = "Successfully addExistingViewerToExistingMovie"),
 			@ApiResponse(responseCode = "404", description = "Screen/Movie not found for the given id") })
 	@PutMapping("/addExistingViewerToExistingMovie")
-	public ResponseStructure<Movie> addExistingViewerToExistingMovie(@RequestParam int viewerId,
+	public ResponseEntity<ResponseStructure<Movie>> addExistingViewerToExistingMovie(@RequestParam int viewerId,
 			@RequestParam int movieId) {
 		return movieService.addExistingViewerToExistingMovie(viewerId, movieId);
 	}
@@ -89,7 +91,7 @@ public class MovieController {
 			@ApiResponse(responseCode = "201", description = "Successfully addNewViewerToExistingMovie"),
 			@ApiResponse(responseCode = "404", description = "Movie/newViewer not found for the given id") })
 	@PutMapping("/addNewViewerToExistingMovie")
-	public ResponseStructure<Movie> addNewViewerToExistingMovie(@RequestParam int movieId,
+	public ResponseEntity<ResponseStructure<Movie>> addNewViewerToExistingMovie(@RequestParam int movieId,
 			@RequestBody Viewer newViewer) {
 		return movieService.addNewViewerToExistingMovie(movieId, newViewer);
 	}
@@ -99,7 +101,7 @@ public class MovieController {
 			@ApiResponse(responseCode = "201", description = "Successfully addExistingReviewToExistingMovie"),
 			@ApiResponse(responseCode = "404", description = "Viewer/Movie not found for the given id") })
 	@PutMapping("/addExistingReviewToExistingMovie")
-	public ResponseStructure<Movie> addExistingReviewToExistingMovie(@RequestParam int reviewId,
+	public ResponseEntity<ResponseStructure<Movie>> addExistingReviewToExistingMovie(@RequestParam int reviewId,
 			@RequestParam int movieId) {
 		return movieService.addExistingReviewToExistingMovie(reviewId, movieId);
 	}
@@ -109,7 +111,7 @@ public class MovieController {
 			@ApiResponse(responseCode = "201", description = "Successfully addNewReviewToExistingMovie"),
 			@ApiResponse(responseCode = "404", description = "Movie/newReview not found for the given id") })
 	@PutMapping("/addNewReviewToExistingMovie")
-	public ResponseStructure<Movie> addNewReviewToExistingMovie(@RequestParam int movieId,
+	public ResponseEntity<ResponseStructure<Movie>> addNewReviewToExistingMovie(@RequestParam int movieId,
 			@RequestBody Review newReview) {
 		return movieService.addNewReviewToExistingMovie(movieId, newReview);
 	}

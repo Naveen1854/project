@@ -1,6 +1,7 @@
 package com.project.theatre_management_system.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,7 +30,7 @@ public class ViewerController {
 	@Operation(summary = "Save Viewer", description = "API is used to save the Viewer")
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully created") })
 	@PostMapping("/saveViewer")
-	public ResponseStructure<Viewer> saveViewer(@RequestBody Viewer viewer) {
+	public ResponseEntity<ResponseStructure<Viewer>> saveViewer(@RequestBody Viewer viewer) {
 		return viewerService.saveViewer(viewer);
 	}
 
@@ -37,14 +38,14 @@ public class ViewerController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully saved"),
 			@ApiResponse(responseCode = "404", description = "Viewer not found for the given id") })
 	@GetMapping("/fetchViewerById")
-	public ResponseStructure<Viewer> fetchViewerById(@RequestParam int viewerId) {
+	public ResponseEntity<ResponseStructure<Viewer>> fetchViewerById(@RequestParam int viewerId) {
 		return viewerService.fetchViewerById(viewerId);
 	}
 
 	@Operation(summary = "fetch all Viewer", description = "API is used to fetch all the Viewer")
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully fetched") })
 	@GetMapping("/fetchAllViewer")
-	public ResponseStructureList<Viewer> fetchAllViewer() {
+	public ResponseEntity<ResponseStructureList<Viewer>> fetchAllViewer() {
 		return viewerService.fetchAllViewer();
 	}
 
@@ -52,7 +53,7 @@ public class ViewerController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully deleted"),
 			@ApiResponse(responseCode = "404", description = "Viewer not found for the given id") })
 	@DeleteMapping("/deleteViewerById")
-	public ResponseStructure<Viewer> deleteViewerById(@RequestParam int viewerId) {
+	public ResponseEntity<ResponseStructure<Viewer>> deleteViewerById(@RequestParam int viewerId) {
 		return viewerService.deleteViewerById(viewerId);
 	}
 
@@ -60,7 +61,8 @@ public class ViewerController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully updated"),
 			@ApiResponse(responseCode = "404", description = "Viewer not found for the given id") })
 	@PutMapping("/updateViewerById")
-	public ResponseStructure<Viewer> updateViewerById(@RequestParam int oldViewerId, @RequestBody Viewer newViewer) {
+	public ResponseEntity<ResponseStructure<Viewer>> updateViewerById(@RequestParam int oldViewerId,
+			@RequestBody Viewer newViewer) {
 		return viewerService.updateViewerById(oldViewerId, newViewer);
 	}
 
@@ -68,7 +70,7 @@ public class ViewerController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully added"),
 			@ApiResponse(responseCode = "404", description = "Seat/Viewer not found for the given id") })
 	@PutMapping("/addExistingSeatToExistingViewer")
-	public ResponseStructure<Viewer> addExistingSeatToExistingViewer(@RequestParam int seatId,
+	public ResponseEntity<ResponseStructure<Viewer>> addExistingSeatToExistingViewer(@RequestParam int seatId,
 			@RequestParam int viewerId) {
 		return viewerService.addExistingSeatToExistingViewer(seatId, viewerId);
 	}
@@ -77,7 +79,7 @@ public class ViewerController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully added"),
 			@ApiResponse(responseCode = "404", description = "Ticket/Viewer not found for the given id") })
 	@PutMapping("/addExistingTicketToExistingViewer")
-	public ResponseStructure<Viewer> addExistingTicketToExistingViewer(@RequestParam int ticketId,
+	public ResponseEntity<ResponseStructure<Viewer>> addExistingTicketToExistingViewer(@RequestParam int ticketId,
 			@RequestParam int viewerId) {
 		return viewerService.addExistingTicketToExistingViewer(ticketId, viewerId);
 	}
@@ -86,7 +88,7 @@ public class ViewerController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully added"),
 			@ApiResponse(responseCode = "404", description = "Viewer/newTicket not found for the given id") })
 	@PutMapping("/addNewTicketToExistingViewer")
-	public ResponseStructure<Viewer> addNewTicketToExistingViewer(@RequestParam int viewerId,
+	public ResponseEntity<ResponseStructure<Viewer>> addNewTicketToExistingViewer(@RequestParam int viewerId,
 			@RequestBody Ticket newTicket) {
 		return viewerService.addNewTicketToExistingViewer(viewerId, newTicket);
 	}
@@ -95,7 +97,7 @@ public class ViewerController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully added"),
 			@ApiResponse(responseCode = "404", description = "Food/Viewer not found for the given id") })
 	@PutMapping("/addExistingFoodToExistingViewer")
-	public ResponseStructure<Viewer> addExistingFoodToExistingViewer(@RequestParam int foodId,
+	public ResponseEntity<ResponseStructure<Viewer>> addExistingFoodToExistingViewer(@RequestParam int foodId,
 			@RequestParam int viewerId) {
 		return viewerService.addExistingFoodToExistingViewer(foodId, viewerId);
 	}
@@ -104,7 +106,8 @@ public class ViewerController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully added"),
 			@ApiResponse(responseCode = "404", description = "Viewer/newFood not found for the given id") })
 	@PutMapping("/addNewFoodToExistingViewer")
-	public ResponseStructure<Viewer> addNewFoodToExistingViewer(@RequestParam int viewerId, @RequestBody Food newFood) {
+	public ResponseEntity<ResponseStructure<Viewer>> addNewFoodToExistingViewer(@RequestParam int viewerId,
+			@RequestBody Food newFood) {
 		return viewerService.addNewFoodToExistingViewer(viewerId, newFood);
 	}
 }

@@ -1,6 +1,7 @@
 package com.project.theatre_management_system.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,7 +27,7 @@ public class AddressController {
 	@Operation(summary = "Save Address", description = "API is used to save the Address")
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully created") })
 	@PostMapping("/saveAddress")
-	public ResponseStructure<Address> saveAddress(@RequestBody Address address) {
+	public ResponseEntity<ResponseStructure<Address>> saveAddress(@RequestBody Address address) {
 		return addressService.saveAddress(address);
 	}
 
@@ -34,14 +35,14 @@ public class AddressController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully saved"),
 			@ApiResponse(responseCode = "404", description = "Address not found for the given id") })
 	@GetMapping("/fetchAddressById")
-	public ResponseStructure<Address> fetchAddressById(@RequestParam int addressId) {
+	public ResponseEntity<ResponseStructure<Address>> fetchAddressById(@RequestParam int addressId) {
 		return addressService.fetchAddressById(addressId);
 	}
 
 	@Operation(summary = "fetch all Address", description = "API is used to fetch all the Addresses")
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully fetched") })
 	@GetMapping("/fetchAllAddress")
-	public ResponseStructureList<Address> fetchAllAddress() {
+	public ResponseEntity<ResponseStructureList<Address>> fetchAllAddress() {
 		return addressService.fetchAllAddress();
 	}
 
@@ -49,7 +50,7 @@ public class AddressController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully deleted"),
 			@ApiResponse(responseCode = "404", description = "Address not found for the given id") })
 	@DeleteMapping("/deleteAddressById")
-	public ResponseStructure<Address> deleteAddressById(@RequestParam int addressId) {
+	public ResponseEntity<ResponseStructure<Address>> deleteAddressById(@RequestParam int addressId) {
 		return addressService.deleteAddressById(addressId);
 	}
 
@@ -57,7 +58,7 @@ public class AddressController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully updated"),
 			@ApiResponse(responseCode = "404", description = "Address not found for the given id") })
 	@PutMapping("/updateAddressById")
-	public ResponseStructure<Address> updateAddressById(@RequestParam int oldAddressId,
+	public ResponseEntity<ResponseStructure<Address>> updateAddressById(@RequestParam int oldAddressId,
 			@RequestBody Address newAddress) {
 		return addressService.updateAddressById(oldAddressId, newAddress);
 	}

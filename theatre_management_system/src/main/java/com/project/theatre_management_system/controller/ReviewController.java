@@ -1,6 +1,7 @@
 package com.project.theatre_management_system.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,7 +27,7 @@ public class ReviewController {
 	@Operation(summary = "Save Review", description = "API is used to save the Review")
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully created") })
 	@PostMapping("/saveReview")
-	public ResponseStructure<Review> saveReview(@RequestBody Review review) {
+	public ResponseEntity<ResponseStructure<Review>> saveReview(@RequestBody Review review) {
 		return reviewService.saveReview(review);
 	}
 
@@ -34,14 +35,14 @@ public class ReviewController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully saved"),
 			@ApiResponse(responseCode = "404", description = "Review not found for the given id") })
 	@GetMapping("/fetchReviewById")
-	public ResponseStructure<Review> fetchReviewById(@RequestParam int reviewId) {
+	public ResponseEntity<ResponseStructure<Review>> fetchReviewById(@RequestParam int reviewId) {
 		return reviewService.fetchReviewById(reviewId);
 	}
 
 	@Operation(summary = "fetch all Review", description = "API is used to fetch all the Reviews")
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully fetched") })
 	@GetMapping("/fetchAllReview")
-	public ResponseStructureList<Review> fetchAllReview() {
+	public ResponseEntity<ResponseStructureList<Review>> fetchAllReview() {
 		return reviewService.fetchAllReview();
 	}
 
@@ -49,7 +50,7 @@ public class ReviewController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully deleted"),
 			@ApiResponse(responseCode = "404", description = "Review not found for the given id") })
 	@DeleteMapping("/deleteReviewById")
-	public ResponseStructure<Review> deleteReviewById(@RequestParam int reviewId) {
+	public ResponseEntity<ResponseStructure<Review>> deleteReviewById(@RequestParam int reviewId) {
 		return reviewService.deleteReviewById(reviewId);
 	}
 
@@ -57,7 +58,8 @@ public class ReviewController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully updated"),
 			@ApiResponse(responseCode = "404", description = "Review not found for the given id") })
 	@PutMapping("/updateReviewById")
-	public ResponseStructure<Review> updateReviewById(@RequestParam int oldReviewId, @RequestBody Review newReview) {
+	public ResponseEntity<ResponseStructure<Review>> updateReviewById(@RequestParam int oldReviewId,
+			@RequestBody Review newReview) {
 		return reviewService.updateReviewById(oldReviewId, newReview);
 	}
 }

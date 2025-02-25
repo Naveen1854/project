@@ -2,6 +2,7 @@ package com.project.theatre_management_system.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.project.theatre_management_system.dao.TheatreDao;
@@ -23,65 +24,65 @@ public class TheatreService {
 	@Autowired
 	ResponseStructureList<Theatre> responseStructureList;
 
-	public ResponseStructure<Theatre> saveTheatre(Theatre theatre) {
+	public ResponseEntity<ResponseStructure<Theatre>> saveTheatre(Theatre theatre) {
 		responseStructure.setStatusCode(HttpStatus.CREATED.value());
-		responseStructure.setMessage("Succesfully Saved the Owner into db");
+		responseStructure.setMessage("Succesfully Saved the Theatre into db");
 		responseStructure.setData(theatreDao.saveTheatre(theatre));
-		return responseStructure;
+		return new ResponseEntity<ResponseStructure<Theatre>>(responseStructure,HttpStatus.CREATED);
 	}
 
-	public ResponseStructure<Theatre> addExistingBranchToExistingTheatre(int branchId, int theatreId) {
+	public ResponseEntity<ResponseStructure<Theatre>> addExistingBranchToExistingTheatre(int branchId, int theatreId) {
 		responseStructure.setStatusCode(HttpStatus.FOUND.value());
-		responseStructure.setMessage("Succesfully Saved the Owner into db");
+		responseStructure.setMessage("Succesfully added Existing Branch To Existing Theatre in to db");
 		responseStructure.setData(theatreDao.addExistingBranchToExistingTheatre(branchId, theatreId));
-		return responseStructure;
+		return new ResponseEntity<ResponseStructure<Theatre>>(responseStructure,HttpStatus.FOUND);
 	}
 
-	public ResponseStructure<Theatre> addNewBranchToExistingTheatre(int theatreId, Branch newBranch) {
+	public ResponseEntity<ResponseStructure<Theatre>> addNewBranchToExistingTheatre(int theatreId, Branch newBranch) {
 		responseStructure.setStatusCode(HttpStatus.FOUND.value());
-		responseStructure.setMessage("Succesfully Saved the Owner into db");
+		responseStructure.setMessage("Succesfully added New Branch To Existing Theatre in to db");
 		responseStructure.setData(theatreDao.addNewBranchToExistingTheatre(theatreId, newBranch));
-		return responseStructure;
+		return new ResponseEntity<ResponseStructure<Theatre>>(responseStructure,HttpStatus.FOUND);
 	}
 
-	public ResponseStructure<Theatre> fetchTheatreById(int theatreId) {
+	public ResponseEntity<ResponseStructure<Theatre>> fetchTheatreById(int theatreId) {
 		Theatre theatre = theatreDao.fetchTheatreById(theatreId);
 		if (theatre != null) {
 			responseStructure.setStatusCode(HttpStatus.FOUND.value());
-			responseStructure.setMessage("Succesfully Saved the Owner into db");
+			responseStructure.setMessage("Succesfully fetched Theatre By Id from db");
 			responseStructure.setData(theatreDao.fetchTheatreById(theatreId));
-			return responseStructure;
+			return new ResponseEntity<ResponseStructure<Theatre>>(responseStructure,HttpStatus.FOUND);
 		} else {
 			throw new TheatreIdNotFound();
 		}
 	}
 
-	public ResponseStructureList<Theatre> fetchAllTheatre() {
+	public ResponseEntity<ResponseStructureList<Theatre>> fetchAllTheatre() {
 		responseStructureList.setStatusCode(HttpStatus.FOUND.value());
-		responseStructureList.setMessage("Succesfully Address fetched by id from db");
+		responseStructureList.setMessage("Succesfully fetched All Theatre from db");
 		responseStructureList.setData(theatreDao.fetchAllTheatre());
-		return responseStructureList;
+		return new ResponseEntity<ResponseStructureList<Theatre>>(responseStructureList,HttpStatus.FOUND);
 	}
 
-	public ResponseStructure<Theatre> deleteTheatreById(int theatreId) {
+	public ResponseEntity<ResponseStructure<Theatre>> deleteTheatreById(int theatreId) {
 		Theatre theatre = theatreDao.fetchTheatreById(theatreId);
 		if (theatre != null) {
 			responseStructure.setStatusCode(HttpStatus.OK.value());
-			responseStructure.setMessage("Succesfully Address fetched by id from db");
+			responseStructure.setMessage("Succesfully deleted Theatre By Id from db");
 			responseStructure.setData(theatreDao.deleteTheatreById(theatreId));
-			return responseStructure;
+			return new ResponseEntity<ResponseStructure<Theatre>>(responseStructure,HttpStatus.OK);
 		} else {
 			throw new TheatreIdNotFound();
 		}
 	}
 
-	public ResponseStructure<Theatre> updateTheatreById(int oldTheatreId, Theatre newTheatre) {
+	public ResponseEntity<ResponseStructure<Theatre>> updateTheatreById(int oldTheatreId, Theatre newTheatre) {
 		Theatre theatre = theatreDao.fetchTheatreById(oldTheatreId);
 		if (theatre != null) {
 			responseStructure.setStatusCode(HttpStatus.OK.value());
-			responseStructure.setMessage("Succesfully Address fetched by id from db");
+			responseStructure.setMessage("Succesfully updated Theatre By Id from db");
 			responseStructure.setData(theatreDao.updateTheatreById(oldTheatreId, newTheatre));
-			return responseStructure;
+			return new ResponseEntity<ResponseStructure<Theatre>>(responseStructure,HttpStatus.OK);
 		} else {
 			throw new TheatreIdNotFound();
 		}

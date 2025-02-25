@@ -1,6 +1,7 @@
 package com.project.theatre_management_system.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,7 +28,7 @@ public class StaffController {
 	@Operation(summary = "Save Seat", description = "API is used to save the Staff")
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully created") })
 	@PostMapping("/saveStaff")
-	public ResponseStructure<Staff> saveStaff(@RequestBody Staff staff) {
+	public ResponseEntity<ResponseStructure<Staff>> saveStaff(@RequestBody Staff staff) {
 		return staffService.saveStaff(staff);
 	}
 
@@ -35,14 +36,14 @@ public class StaffController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully saved"),
 			@ApiResponse(responseCode = "404", description = "Staff not found for the given id") })
 	@GetMapping("/fetchStaffById")
-	public ResponseStructure<Staff> fetchStaffById(@RequestParam int staffId) {
+	public ResponseEntity<ResponseStructure<Staff>> fetchStaffById(@RequestParam int staffId) {
 		return staffService.fetchStaffById(staffId);
 	}
 
 	@Operation(summary = "fetch all Staff", description = "API is used to fetch all the Staff")
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully fetched") })
 	@GetMapping("/fetchAllStaff")
-	public ResponseStructureList<Staff> fetchAllStaff() {
+	public ResponseEntity<ResponseStructureList<Staff>> fetchAllStaff() {
 		return staffService.fetchAllStaff();
 	}
 
@@ -50,7 +51,7 @@ public class StaffController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully deleted"),
 			@ApiResponse(responseCode = "404", description = "Staff not found for the given id") })
 	@DeleteMapping("/deleteStaffById")
-	public ResponseStructure<Staff> deleteStaffById(@RequestParam int staffId) {
+	public ResponseEntity<ResponseStructure<Staff>> deleteStaffById(@RequestParam int staffId) {
 		return staffService.deleteStaffById(staffId);
 	}
 
@@ -58,7 +59,7 @@ public class StaffController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully updated"),
 			@ApiResponse(responseCode = "404", description = "Staff not found for the given id") })
 	@PutMapping("/updateStaffById")
-	public ResponseStructure<Staff> updateStaffById(@RequestParam int oldStaffId, @RequestBody Staff newStaff) {
+	public ResponseEntity<ResponseStructure<Staff>> updateStaffById(@RequestParam int oldStaffId, @RequestBody Staff newStaff) {
 		return staffService.updateStaffById(oldStaffId, newStaff);
 	}
 }

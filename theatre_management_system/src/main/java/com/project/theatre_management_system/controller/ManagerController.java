@@ -1,6 +1,7 @@
 package com.project.theatre_management_system.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,7 +27,7 @@ public class ManagerController {
 	@Operation(summary = "Save Manager", description = "API is used to save the Manager")
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully created") })
 	@PostMapping("/saveManager")
-	public ResponseStructure<Manager> saveManager(@RequestBody Manager manager) {
+	public ResponseEntity<ResponseStructure<Manager>> saveManager(@RequestBody Manager manager) {
 		return managerService.saveManager(manager);
 	}
 
@@ -34,14 +35,14 @@ public class ManagerController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully saved"),
 			@ApiResponse(responseCode = "404", description = "Manager not found for the given id") })
 	@GetMapping("/fetchManagerById")
-	public ResponseStructure<Manager> fetchManagerById(@RequestParam int managerId) {
+	public ResponseEntity<ResponseStructure<Manager>> fetchManagerById(@RequestParam int managerId) {
 		return managerService.fetchManagerById(managerId);
 	}
 
 	@Operation(summary = "fetch all Manager", description = "API is used to fetch all the Managers")
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully fetched") })
 	@GetMapping("/fetchAllManager")
-	public ResponseStructureList<Manager> fetchAllManager() {
+	public ResponseEntity<ResponseStructureList<Manager>> fetchAllManager() {
 		return managerService.fetchAllManager();
 	}
 
@@ -49,7 +50,7 @@ public class ManagerController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully deleted"),
 			@ApiResponse(responseCode = "404", description = "Manager not found for the given id") })
 	@DeleteMapping("/deleteManagerById")
-	public ResponseStructure<Manager> deleteManagerById(@RequestParam int managerId) {
+	public ResponseEntity<ResponseStructure<Manager>> deleteManagerById(@RequestParam int managerId) {
 		return managerService.deleteManagerById(managerId);
 	}
 
@@ -57,7 +58,7 @@ public class ManagerController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully updated"),
 			@ApiResponse(responseCode = "404", description = "Manager not found for the given id") })
 	@PutMapping("/updateManagerById")
-	public ResponseStructure<Manager> updateManagerById(@RequestParam int oldManagerId,
+	public ResponseEntity<ResponseStructure<Manager>> updateManagerById(@RequestParam int oldManagerId,
 			@RequestBody Manager newManager) {
 		return managerService.updateManagerById(oldManagerId, newManager);
 	}
