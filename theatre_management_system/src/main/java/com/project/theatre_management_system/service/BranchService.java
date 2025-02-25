@@ -76,7 +76,7 @@ public class BranchService {
 		Branch branch = branchDao.fetchBranchById(branchId);
 		if (branch != null) {
 			responseStructure.setStatusCode(HttpStatus.FOUND.value());
-			responseStructure.setMessage("Successfullyg Branch fetched By Id");
+			responseStructure.setMessage("Successfullyg Branch fetched By Id from db");
 			responseStructure.setData(branchDao.fetchBranchById(branchId));
 			return responseStructure;
 		} else {
@@ -86,7 +86,7 @@ public class BranchService {
 
 	public ResponseStructureList<Branch> fetchAllBranch() {
 		responseStructureList.setStatusCode(HttpStatus.FOUND.value());
-		responseStructureList.setMessage("Succesfully AllBranch fetched db");
+		responseStructureList.setMessage("Succesfully All Branches fetched from db");
 		responseStructureList.setData(branchDao.fetchAllBranch());
 		return responseStructureList;
 	}

@@ -14,31 +14,48 @@ import com.project.theatre_management_system.service.ReviewService;
 import com.project.theatre_management_system.util.ResponseStructure;
 import com.project.theatre_management_system.util.ResponseStructureList;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
 @RestController
 public class ReviewController {
 	@Autowired
 	ReviewService reviewService;
 
+	@Operation(summary = "Save Review", description = "API is used to save the Review")
+	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully created") })
 	@PostMapping("/saveReview")
 	public ResponseStructure<Review> saveReview(@RequestBody Review review) {
 		return reviewService.saveReview(review);
 	}
 
+	@Operation(summary = "fetch Review", description = "API is used to fetch the Review")
+	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully saved"),
+			@ApiResponse(responseCode = "404", description = "Review not found for the given id") })
 	@GetMapping("/fetchReviewById")
 	public ResponseStructure<Review> fetchReviewById(@RequestParam int reviewId) {
 		return reviewService.fetchReviewById(reviewId);
 	}
 
+	@Operation(summary = "fetch all Review", description = "API is used to fetch all the Reviews")
+	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully fetched") })
 	@GetMapping("/fetchAllReview")
 	public ResponseStructureList<Review> fetchAllReview() {
 		return reviewService.fetchAllReview();
 	}
 
+	@Operation(summary = "delete Review", description = "API is used to delete the Review")
+	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully deleted"),
+			@ApiResponse(responseCode = "404", description = "Review not found for the given id") })
 	@DeleteMapping("/deleteReviewById")
 	public ResponseStructure<Review> deleteReviewById(@RequestParam int reviewId) {
 		return reviewService.deleteReviewById(reviewId);
 	}
 
+	@Operation(summary = "update Review", description = "API is used to update the Review")
+	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully updated"),
+			@ApiResponse(responseCode = "404", description = "Review not found for the given id") })
 	@PutMapping("/updateReviewById")
 	public ResponseStructure<Review> updateReviewById(@RequestParam int oldReviewId, @RequestBody Review newReview) {
 		return reviewService.updateReviewById(oldReviewId, newReview);

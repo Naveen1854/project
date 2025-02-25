@@ -14,31 +14,48 @@ import com.project.theatre_management_system.service.ManagerService;
 import com.project.theatre_management_system.util.ResponseStructure;
 import com.project.theatre_management_system.util.ResponseStructureList;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
 @RestController
 public class ManagerController {
 	@Autowired
 	ManagerService managerService;
 
+	@Operation(summary = "Save Manager", description = "API is used to save the Manager")
+	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully created") })
 	@PostMapping("/saveManager")
 	public ResponseStructure<Manager> saveManager(@RequestBody Manager manager) {
 		return managerService.saveManager(manager);
 	}
 
+	@Operation(summary = "fetch Manager", description = "API is used to fetch the Manager")
+	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully saved"),
+			@ApiResponse(responseCode = "404", description = "Manager not found for the given id") })
 	@GetMapping("/fetchManagerById")
 	public ResponseStructure<Manager> fetchManagerById(@RequestParam int managerId) {
 		return managerService.fetchManagerById(managerId);
 	}
 
+	@Operation(summary = "fetch all Manager", description = "API is used to fetch all the Managers")
+	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully fetched") })
 	@GetMapping("/fetchAllManager")
 	public ResponseStructureList<Manager> fetchAllManager() {
 		return managerService.fetchAllManager();
 	}
 
+	@Operation(summary = "delete Manager", description = "API is used to delete the Manager")
+	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully deleted"),
+			@ApiResponse(responseCode = "404", description = "Manager not found for the given id") })
 	@DeleteMapping("/deleteManagerById")
 	public ResponseStructure<Manager> deleteManagerById(@RequestParam int managerId) {
 		return managerService.deleteManagerById(managerId);
 	}
 
+	@Operation(summary = "update Manager", description = "API is used to update the Manager")
+	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully updated"),
+			@ApiResponse(responseCode = "404", description = "Manager not found for the given id") })
 	@PutMapping("/updateManagerById")
 	public ResponseStructure<Manager> updateManagerById(@RequestParam int oldManagerId,
 			@RequestBody Manager newManager) {
