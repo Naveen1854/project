@@ -53,7 +53,7 @@ public class ReviewService {
 		if (review != null) {
 			responseStructure.setStatusCode(HttpStatus.OK.value());
 			responseStructure.setMessage("Succesfully deleted review by id from db");
-			responseStructure.setData(reviewDao.deleteRwviewById(reviewId));
+			responseStructure.setData(reviewDao.deleteReviewById(reviewId));
 			return new ResponseEntity<ResponseStructure<Review>>(responseStructure,HttpStatus.OK);
 		} else {
 			throw new ReviewIdNotFound();

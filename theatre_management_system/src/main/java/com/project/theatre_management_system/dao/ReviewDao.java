@@ -29,7 +29,7 @@ public class ReviewDao {
 		return reviewRepo.findAll();
 	}
 
-	public Review deleteRwviewById(int reviewId) {
+	public Review deleteReviewById(int reviewId) {
 		Review review = fetchReviewById(reviewId);
 		reviewRepo.delete(review);
 		return review;

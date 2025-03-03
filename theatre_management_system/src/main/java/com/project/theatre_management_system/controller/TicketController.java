@@ -36,8 +36,8 @@ public class TicketController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully saved"),
 			@ApiResponse(responseCode = "404", description = "Ticket not found for the given id") })
 	@GetMapping("/fetchTicketById")
-	public ResponseEntity<ResponseStructure<Ticket>> fetchTicketById(@RequestParam int TicketId) {
-		return ticketService.fetchTicketById(TicketId);
+	public ResponseEntity<ResponseStructure<Ticket>> fetchTicketById(@RequestParam int ticketId) {
+		return ticketService.fetchTicketById(ticketId);
 	}
 
 	@Operation(summary = "fetch all Ticket", description = "API is used to fetch all the Ticket")
@@ -51,8 +51,8 @@ public class TicketController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully deleted"),
 			@ApiResponse(responseCode = "404", description = "Ticket not found for the given id") })
 	@DeleteMapping("/deleteTicketById")
-	public ResponseEntity<ResponseStructure<Ticket>> deleteTicketById(@RequestParam int TicketId) {
-		return ticketService.deleteTicketById(TicketId);
+	public ResponseEntity<ResponseStructure<Ticket>> deleteTicketById(@RequestParam int ticketId) {
+		return ticketService.deleteTicketById(ticketId);
 	}
 
 	@Operation(summary = "update Ticket", description = "API is used to update the Ticket")

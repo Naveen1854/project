@@ -32,7 +32,7 @@ public class ReviewController {
 	}
 
 	@Operation(summary = "fetch Review", description = "API is used to fetch the Review")
-	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully saved"),
+	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully fetched"),
 			@ApiResponse(responseCode = "404", description = "Review not found for the given id") })
 	@GetMapping("/fetchReviewById")
 	public ResponseEntity<ResponseStructure<Review>> fetchReviewById(@RequestParam int reviewId) {

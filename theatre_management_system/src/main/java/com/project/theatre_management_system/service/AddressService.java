@@ -43,7 +43,7 @@ public class AddressService {
 
 	public ResponseEntity<ResponseStructureList<Address>> fetchAllAddress() {
 		responseStructureList.setStatusCode(HttpStatus.FOUND.value());
-		responseStructureList.setMessage("Succesfully AllAddress fetched from db");
+		responseStructureList.setMessage("Succesfully All Address fetched from db");
 		responseStructureList.setData(addressDao.fetchAllAddress());
 		return new ResponseEntity<ResponseStructureList<Address>>(responseStructureList, HttpStatus.FOUND);
 	}

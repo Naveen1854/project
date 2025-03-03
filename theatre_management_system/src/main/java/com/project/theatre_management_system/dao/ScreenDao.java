@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.project.theatre_management_system.dto.Review;
 import com.project.theatre_management_system.dto.Screen;
 import com.project.theatre_management_system.dto.Seat;
 import com.project.theatre_management_system.repo.ScreenRepo;
@@ -18,13 +19,13 @@ public class ScreenDao {
 	@Autowired
 	SeatDao seatDao;
 
-	public Screen saveScreen(Screen Screen) {
-		return screenRepo.save(Screen);
+	public Screen saveScreen(Screen screen) {
+		return screenRepo.save(screen);
 	}
 
-	public Screen addExistingSeatToExistingScreen(int seatId, int ScreenId) {
+	public Screen addExistingSeatToExistingScreen(int seatId, int screenId) {
 		Seat seat = seatDao.fetchSeatById(seatId);
-		Screen screen = fetchScreenById(ScreenId);
+		Screen screen = fetchScreenById(screenId);
 		List<Seat> list = screen.getSeats();
 		list.add(seat);
 		screen.setSeats(list);
@@ -39,21 +40,21 @@ public class ScreenDao {
 		return saveScreen(screen);
 	}
 
-	public Screen fetchScreenById(int ScreenId) {
-		Optional<Screen> dbScreen = screenRepo.findById(ScreenId);
+	public Screen fetchScreenById(int screenId) {
+		Optional<Screen> dbScreen = screenRepo.findById(screenId);
 		if (dbScreen.isEmpty())
-			return dbScreen.get();
-		return null;
+			return null;
+		return dbScreen.get();
 	}
 
 	public List<Screen> fetchAllScreen() {
 		return screenRepo.findAll();
 	}
 
-	public Screen deleteScreenById(int ScreenId) {
-		Screen Screen = deleteScreenById(ScreenId);
-		screenRepo.delete(Screen);
-		return Screen;
+	public Screen deleteScreenById(int screenId) {
+		Screen screen = fetchScreenById(screenId);
+		screenRepo.delete(screen);
+		return screen;
 	}
 
 	public Screen updateScreenById(int oldScreenId, Screen newScreen) {

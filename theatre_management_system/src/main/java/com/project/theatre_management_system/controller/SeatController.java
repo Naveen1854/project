@@ -28,16 +28,16 @@ public class SeatController {
 	@Operation(summary = "Save Seat", description = "API is used to save the Seat")
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully created") })
 	@PostMapping("/saveSeat")
-	public ResponseEntity<ResponseStructure<Seat>> saveSeat(@RequestBody Seat Seat) {
-		return SeatService.saveSeat(Seat);
+	public ResponseEntity<ResponseStructure<Seat>> saveSeat(@RequestBody Seat seat) {
+		return SeatService.saveSeat(seat);
 	}
 
 	@Operation(summary = "fetch Seat", description = "API is used to fetch the Seat")
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully saved"),
 			@ApiResponse(responseCode = "404", description = "Seat not found for the given id") })
 	@GetMapping("/fetchSeatById")
-	public ResponseEntity<ResponseStructure<Seat>> fetchSeatById(@RequestParam int SeatId) {
-		return SeatService.fetchSeatById(SeatId);
+	public ResponseEntity<ResponseStructure<Seat>> fetchSeatById(@RequestParam int seatId) {
+		return SeatService.fetchSeatById(seatId);
 	}
 
 	@Operation(summary = "fetch all Seat", description = "API is used to fetch all the Seats")
@@ -51,8 +51,8 @@ public class SeatController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully deleted"),
 			@ApiResponse(responseCode = "404", description = "Seat not found for the given id") })
 	@DeleteMapping("/deleteSeatById")
-	public ResponseEntity<ResponseStructure<Seat>> deleteSeatById(@RequestParam int SeatId) {
-		return SeatService.deleteSeatById(SeatId);
+	public ResponseEntity<ResponseStructure<Seat>> deleteSeatById(@RequestParam int seatId) {
+		return SeatService.deleteSeatById(seatId);
 	}
 
 	@Operation(summary = "update Seat", description = "API is used to update the Seat")

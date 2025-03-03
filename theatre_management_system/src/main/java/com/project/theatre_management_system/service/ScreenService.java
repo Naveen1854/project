@@ -30,10 +30,10 @@ public class ScreenService {
 		return new ResponseEntity<ResponseStructure<Screen>>(responseStructure,HttpStatus.CREATED);
 	}
 
-	public ResponseEntity<ResponseStructure<Screen>> addExistingSeatToExistingScreen(int seatId, int ScreenId) {
+	public ResponseEntity<ResponseStructure<Screen>> addExistingSeatToExistingScreen(int seatId, int screenId) {
 		responseStructure.setStatusCode(HttpStatus.FOUND.value());
 		responseStructure.setMessage("Succesfully added existing seat to existing Screen into db");
-		responseStructure.setData(screenDao.addExistingSeatToExistingScreen(seatId, ScreenId));
+		responseStructure.setData(screenDao.addExistingSeatToExistingScreen(seatId, screenId));
 		return new ResponseEntity<ResponseStructure<Screen>>(responseStructure,HttpStatus.FOUND);
 	}
 

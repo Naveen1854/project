@@ -34,7 +34,7 @@ public class ScreenController {
 	}
 
 	@Operation(summary = "fetch Screen", description = "API is used to fetch the Screen")
-	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully saved"),
+	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully fetched"),
 			@ApiResponse(responseCode = "404", description = "Screen not found for the given id") })
 	@GetMapping("/fetchScreenById")
 	public ResponseEntity<ResponseStructure<Screen>> fetchScreenById(@RequestParam int screenId) {
@@ -60,9 +60,9 @@ public class ScreenController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully updated"),
 			@ApiResponse(responseCode = "404", description = "Screen not found for the given id") })
 	@PutMapping("/updateScreenById")
-	public ResponseEntity<ResponseStructure<Screen>> updateScreenById(@RequestParam int oldScreend,
+	public ResponseEntity<ResponseStructure<Screen>> updateScreenById(@RequestParam int oldScreenId,
 			@RequestBody Screen newScreen) {
-		return screenService.updateScreenById(oldScreend, newScreen);
+		return screenService.updateScreenById(oldScreenId, newScreen);
 	}
 
 	@Operation(summary = "add Existing Seat To Existing Screen", description = "API is used to addExistingSeatToExistingScreen")
@@ -70,14 +70,14 @@ public class ScreenController {
 			@ApiResponse(responseCode = "404", description = "Seat/Screen not found for the given id") })
 	@PutMapping("/addExistingSeatToExistingScreen")
 	public ResponseEntity<ResponseStructure<Screen>> addExistingSeatToExistingScreen(@RequestParam int seatId,
-			@RequestParam int ScreenId) {
-		return screenService.addExistingSeatToExistingScreen(seatId, ScreenId);
+			@RequestParam int screenId) {
+		return screenService.addExistingSeatToExistingScreen(seatId, screenId);
 	}
 
 	@Operation(summary = "Add New Seat To Existing Screen", description = "API is used to addNewSeatToExistingScreen")
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Successfully added"),
 			@ApiResponse(responseCode = "404", description = "Screen/newSeat not found for the given id") })
-	@PostMapping("/addNewSeatToExistingScreen")
+	@PutMapping("/addNewSeatToExistingScreen")
 	public ResponseEntity<ResponseStructure<Screen>> addNewSeatToExistingScreen(@RequestParam int screenId,
 			@RequestBody Seat newSeat) {
 		return screenService.addNewSeatToExistingScreen(screenId, newSeat);

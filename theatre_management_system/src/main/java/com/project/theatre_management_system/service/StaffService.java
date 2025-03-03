@@ -53,7 +53,7 @@ public class StaffService {
 		Staff staff = staffDao.fetchStaffById(staffId);
 		if(staff != null) {
 		responseStructure.setStatusCode(HttpStatus.OK.value());
-		responseStructure.setMessage("Succesfully Address fetched by id from db");
+		responseStructure.setMessage("Succesfully Staff deleted by id from db");
 		responseStructure.setData(staffDao.deleteStaffById(staffId));
 		return new ResponseEntity<ResponseStructure<Staff>>(responseStructure,HttpStatus.OK);
 		}else {
@@ -65,7 +65,7 @@ public class StaffService {
 		Staff staff = staffDao.fetchStaffById(oldStaffId);
 		if(staff != null) {
 		responseStructure.setStatusCode(HttpStatus.OK.value());
-		responseStructure.setMessage("Succesfully Address fetched by id from db");
+		responseStructure.setMessage("Succesfully updated staff by id id db");
 		responseStructure.setData(staffDao.updateStaffById(oldStaffId, newStaff));
 		return new ResponseEntity<ResponseStructure<Staff>>(responseStructure,HttpStatus.OK);
 		}else {
