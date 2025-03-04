@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.project.theatre_management_system.dto.Review;
 import com.project.theatre_management_system.dto.Screen;
 import com.project.theatre_management_system.dto.Seat;
 import com.project.theatre_management_system.repo.ScreenRepo;

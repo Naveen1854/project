@@ -26,7 +26,7 @@ public class ApplicationConfiguration {
                         .version("1.0")
                         .contact(new Contact()
                                 .name("Naveen")
-                                .email("naveen1854@gmail.com"))
+                                .email("knaveen1854@gmail.com"))
                         .license(new License().name("License").url("#")));
     }
 
