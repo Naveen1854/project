@@ -8,7 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table
+@Table(name = "Book")
 public class Book {
 	
 	@Id
@@ -16,18 +16,19 @@ public class Book {
 	private int id;
 	private String name;
 	private String author;
-	private String price;
-	public Book(int id, String name, String author, String price) {
-		super();
+	private double price;
+	
+	public Book(int id, String name, String author, double price) {
 		this.id = id;
 		this.name = name;
 		this.author = author;
 		this.price = price;
 	}
+	
 	public Book() {
-		super();
-		// TODO Auto-generated constructor stub
+		
 	}
+	
 	public int getId() {
 		return id;
 	}
@@ -46,10 +47,10 @@ public class Book {
 	public void setAuthor(String author) {
 		this.author = author;
 	}
-	public String getPrice() {
+	public double getPrice() {
 		return price;
 	}
-	public void setPrice(String price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 	

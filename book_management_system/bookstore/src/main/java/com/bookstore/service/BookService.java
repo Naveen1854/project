@@ -1,7 +1,5 @@
 package com.bookstore.service;
 
-
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,24 +10,29 @@ import com.bookstore.repository.BookRepository;
 
 @Service
 public class BookService {
-	
-	@Autowired
-	private BookRepository bRepo;
-	
+
+//	@Autowired
+//	private BookRepository bRepo;
+
+	private final BookRepository bookRepository;
+
+	public BookService(BookRepository bookRepository) {
+		this.bookRepository = bookRepository;
+	}
+
 	public void save(Book b) {
-		
-		bRepo.save(b);
-	
+		bookRepository.save(b);
 	}
-	
-	public List<Book> getAllBook(){
-		return bRepo.findAll();
+
+	public List<Book> getAllBook() {
+		return bookRepository.findAll();
 	}
-	
+
 	public Book getBookById(int id) {
-		return bRepo.findById(id).get();
+		return bookRepository.findById(id).get();
 	}
+
 	public void deleteById(int id) {
-		bRepo.deleteById(id);
+		bookRepository.deleteById(id);
 	}
 }
